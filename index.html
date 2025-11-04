@@ -214,7 +214,7 @@
                 const userCredential = await signInWithEmailAndPassword(auth, email, senha);
                 console.log("Login OK:", userCredential.user);
                 setFeedback('✅ Login bem-sucedido! Redirecionando...', false);
-                setTimeout(() => window.location.href = 'dashboard', 900);
+                setTimeout(() => window.location.href = 'dashboard.html', 900);
             } catch (err) {
                 console.error(err);
                 if (err && err.code === 'auth/user-not-found') {
