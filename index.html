@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Login</title>
 
     <style>
@@ -32,34 +32,23 @@
         }
 
         .card {
-            width: 920px;
+            width: 480px;
             max-width: 95vw;
             background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
             border-radius: 14px;
             padding: 18px;
             box-shadow: 0 8px 30px rgba(2,6,23,0.6);
             border: 1px solid rgba(255,255,255,0.03);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 14px;
         }
 
-        .quad {
-            background: var(--card);
-            border-radius: 10px;
-            padding: 16px;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid rgba(255,255,255,0.02);
+        h2 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            color: var(--accent)
         }
-
-            .quad h3 {
-                margin: 0 0 8px;
-                font-size: 14px;
-                color: var(--accent)
-            }
 
         .input {
             background: rgba(255,255,255,0.02);
@@ -74,15 +63,6 @@
             .input::placeholder {
                 color: rgba(230,238,247,0.35)
             }
-
-        .actions {
-            grid-column: 1 / -1;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            justify-content: flex-end;
-            margin-top: 8px
-        }
 
         .btn {
             background: linear-gradient(90deg,var(--accent),#34d399);
@@ -110,63 +90,40 @@
             font-weight: 600
         }
 
-        @media (max-width:720px) {
-            .card {
-                grid-template-columns: 1fr;
-                padding: 14px
-            }
+        .link-register {
+            text-align: center;
+            margin-top: 6px;
+        }
 
-            .actions {
-                flex-direction: column-reverse;
-                align-items: stretch
-            }
+        a {
+            color: var(--accent);
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
+
     <div class="wrap">
-        <div class="card" role="main" aria-labelledby="title">
-            <div style="grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <h2 id="title" style="margin:0;font-size:18px">Login</h2>
-                <div class="small" id="status">offline</div>
-            </div>
+        <div class="card" role="main">
+            <h2>Login</h2>
 
-            <!-- Quadrante 1: Nome completo (apenas visual) -->
-            <div class="quad" id="q-nome" aria-label="Nome completo">
-                <h3>Nome completo</h3>
-                <input id="input-name" class="input" type="text" placeholder="João da Silva" />
-            </div>
+            <input id="input-email" class="input" type="email" placeholder="seu@exemplo.com">
+            <input id="input-senha" class="input" type="password" placeholder="••••••••">
 
-            <!-- Quadrante 2: CPF (apenas visual) -->
-            <div class="quad" id="q-cpf" aria-label="CPF">
-                <h3>CPF</h3>
-                <input id="input-cpf" class="input" type="text" placeholder="000.000.000-00" />
-            </div>
+            <div class="msg" id="feedback"></div>
+            <button id="btn-login" class="btn">Entrar</button>
 
-            <!-- Quadrante 3: Email (funcional) -->
-            <div class="quad" id="q-email" aria-label="Email">
-                <h3>Email</h3>
-                <input id="input-email" class="input" type="email" placeholder="seu@exemplo.com" />
-            </div>
-
-            <!-- Quadrante 4: Senha (funcional) -->
-            <div class="quad" id="q-senha" aria-label="Senha">
-                <h3>Senha</h3>
-                <input id="input-senha" class="input" type="password" placeholder="••••••••" />
-            </div>
-
-            <div class="actions">
-                <div id="feedback" class="msg"></div>
-                <button id="btn-login" class="btn">Entrar</button>
+            <div class="link-register">
+                <p>Não tem conta? <a href="register.html">Cadastre-se</a></p>
             </div>
         </div>
     </div>
 
-    <!-- Firebase (modular) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBZ2qO0K626TF1Dt2AdDfHtIYvg9n-G1MI",
             authDomain: "banco-4855c.firebaseapp.com",
@@ -178,7 +135,6 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        document.getElementById('status').textContent = 'Firebase ready';
 
         const emailEl = document.getElementById('input-email');
         const senhaEl = document.getElementById('input-senha');
@@ -198,42 +154,28 @@
             const email = (emailEl.value || '').trim();
             const senha = (senhaEl.value || '').trim();
 
-            if (!email || !senha) {
-                setFeedback('Preencha e-mail e senha.', true);
-                return;
-            }
-            if (!validarEmail(email)) {
-                setFeedback('Digite um e-mail válido.', true);
-                return;
-            }
+            if (!email || !senha) { setFeedback('Preencha e-mail e senha.', true); return; }
+            if (!validarEmail(email)) { setFeedback('Digite um e-mail válido.', true); return; }
 
-            setFeedback('Aguarde...', false);
+            setFeedback('Verificando...', false);
             btn.disabled = true;
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-                console.log("Login OK:", userCredential.user);
+                console.log("Login bem-sucedido:", userCredential.user);
                 setFeedback('✅ Login bem-sucedido! Redirecionando...', false);
-                setTimeout(() => window.location.href = 'https://bancoquantum.my.canva.site/dag3wkgmvyy/#page-0', 900);
+                setTimeout(() => {
+                    window.location.href = 'https://bancoquantum.my.canva.site/dag3wkgmvyy/#page-0';
+                }, 800);
             } catch (err) {
                 console.error(err);
-                if (err && err.code === 'auth/user-not-found') {
-                    setFeedback('Usuário não encontrado.', true);
-                } else if (err && err.code === 'auth/wrong-password') {
-                    setFeedback('Senha incorreta.', true);
-                } else if (err && err.code === 'auth/invalid-email') {
-                    setFeedback('E-mail com formato inválido.', true);
-                } else {
-                    setFeedback('Erro: ' + (err.message || 'Falha no login'), true);
-                }
-            } finally {
-                btn.disabled = false;
-            }
+                if (err.code === 'auth/user-not-found') { setFeedback('Usuário não encontrado.', true); }
+                else if (err.code === 'auth/wrong-password') { setFeedback('Senha incorreta.', true); }
+                else { setFeedback('Erro: ' + (err.message || 'Falha no login'), true); }
+            } finally { btn.disabled = false; }
         });
 
-        senhaEl.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') btn.click();
-        });
+        senhaEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
     </script>
 </body>
 </html>
