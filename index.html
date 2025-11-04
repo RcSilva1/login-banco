@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Banco</title>
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZ2qO0K626TF1Dt2AdDfHtIYvg9n-G1MI",
+      authDomain: "banco-4855c.firebaseapp.com",
+      projectId: "banco-4855c",
+      storageBucket: "banco-4855c.firebasestorage.app",
+      messagingSenderId: "119137966073",
+      appId: "1:119137966073:web:975720050f403475844f28"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("btn-login");
+      const emailInput = document.getElementById("input-email");
+      const senhaInput = document.getElementById("input-senha");
+
+      btn.addEventListener("click", async () => {
+        const email = emailInput.value.trim();
+        const senha = senhaInput.value.trim();
+
+        if (!email || !senha) {
+          alert("⚠️ Preencha e-mail e senha.");
+          return;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          alert("⚠️ Digite um e-mail válido.");
+          return;
+        }
+
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+          alert("✅ Login bem-sucedido!");
+          window.location.href = "https://seusite.com/dashboard";
+        } catch (error) {
+          alert("❌ Erro: " + error.message);
+        }
+      });
+    });
+    </script>
+</head>
+<body>
+    <div style="display:flex;flex-direction:column;gap:10px;width:300px;margin:auto;margin-top:100px;">
+        <input id="input-email" type="email" placeholder="Email" style="padding:10px;font-size:16px;">
+        <input id="input-senha" type="password" placeholder="Senha" style="padding:10px;font-size:16px;">
+        <button id="btn-login" style="padding:10px;font-size:16px;cursor:pointer;">Entrar</button>
+    </div>
+</body>
+</html>
