@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Quantum - Dashboard</title>
+    <style>
+        :root {
+            --primary: #1f244c;
+            --accent: #78b2cb;
+            --white: #ffffff;
+            --bg: #f5f7fa;
+            --text-dark: #1f244c;
+            --text-light: #fff;
+            --card-bg: #ffffff;
+            --card-shadow: rgba(0,0,0,0.1);
+            --border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            .sidebar h1 {
+                font-size: 24px;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .sidebar nav a {
+                color: var(--white);
+                text-decoration: none;
+                padding: 10px 15px;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                display: block;
+                transition: background 0.2s;
+            }
+
+                .sidebar nav a:hover {
+                    background: var(--accent);
+                    color: var(--white);
+                }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            .header h2 {
+                color: var(--primary);
+            }
+
+            .header button {
+                background: var(--accent);
+                border: none;
+                padding: 10px 16px;
+                color: var(--white);
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+            .card h3 {
+                margin-bottom: 10px;
+                color: var(--primary);
+            }
+
+            .card p {
+                font-size: 18px;
+                font-weight: bold;
+                color: var(--text-dark);
+            }
+
+        .transactions {
+            margin-top: 30px;
+        }
+
+            .transactions table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--card-bg);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+                box-shadow: 0 4px 12px var(--card-shadow);
+            }
+
+            .transactions th, .transactions td {
+                padding: 12px 15px;
+                text-align: left;
+            }
+
+            .transactions th {
+                background: var(--primary);
+                color: var(--white);
+            }
+
+            .transactions tr:nth-child(even) {
+                background: #f0f4f8;
+            }
+
+            .transactions tr:hover {
+                background: #e0e6f0;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h1>Banco Quantum</h1>
+        <nav>
+            <a href="#">Conta</a>
+            <a href="#">Cartões</a>
+            <a href="#">Transferências</a>
+            <a href="#">Configurações</a>
+            <a href="#">Sair</a>
+        </nav>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <h2>Bem-vindo, Fulano</h2>
+            <button>Nova Transferência</button>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Saldo Total</h3>
+                <p>R$ 5.230,45</p>
+            </div>
+            <div class="card">
+                <h3>Cartão de Crédito</h3>
+                <p>Limite disponível: R$ 3.500,00</p>
+            </div>
+        </div>
+
+        <div class="transactions">
+            <h3>Últimas Transações</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>01/11/2025</td><td>Compra Supermercado</td><td>- R$ 150,00</td></tr>
+                    <tr><td>28/10/2025</td><td>Depósito</td><td>+ R$ 1.000,00</td></tr>
+                    <tr><td>25/10/2025</td><td>Transferência Recebida</td><td>+ R$ 500,00</td></tr>
+                    <tr><td>22/10/2025</td><td>Pagamento Luz</td><td>- R$ 120,00</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
