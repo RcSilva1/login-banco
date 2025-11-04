@@ -1,0 +1,59 @@
+﻿<!-- Aba Transferências -->
+<div class="card" role="main" aria-labelledby="title-transfer">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <h2 id="title-transfer" style="margin:0;font-size:18px">Transferências</h2>
+        <div class="small" id="status-transfer">offline</div>
+    </div>
+
+    <!-- Formulário de transferência -->
+    <div class="quad">
+        <h3>Destinatário (Email ou CPF)</h3>
+        <input id="input-destino" class="input" type="text" placeholder="exemplo@banco.com">
+    </div>
+
+    <div class="quad">
+        <h3>Valor</h3>
+        <input id="input-valor" class="input" type="number" placeholder="0.00">
+    </div>
+
+    <div class="quad">
+        <h3>Mensagem (opcional)</h3>
+        <input id="input-msg" class="input" type="text" placeholder="Mensagem para o destinatário">
+    </div>
+
+    <div class="actions">
+        <div id="feedback-transfer" class="msg"></div>
+        <button id="btn-transfer" class="btn">Enviar PIX</button>
+    </div>
+</div>
+
+<script>
+const btnTransfer = document.getElementById('btn-transfer');
+const destinoEl = document.getElementById('input-destino');
+const valorEl = document.getElementById('input-valor');
+const msgEl = document.getElementById('input-msg');
+const feedbackTransfer = document.getElementById('feedback-transfer');
+
+function setFeedbackTransfer(text, isError = false){
+    feedbackTransfer.textContent = text;
+    feedbackTransfer.className = isError ? 'msg error' : 'msg';
+}
+
+btnTransfer.addEventListener('click', () => {
+    const destino = (destinoEl.value || '').trim();
+    const valor = parseFloat(valorEl.value);
+
+    if(!destino || isNaN(valor) || valor <= 0){
+        setFeedbackTransfer('Preencha destinatário e valor válido.', true);
+        return;
+    }
+
+    // Demo: apenas simula a transferência
+    setFeedbackTransfer(`✅ Transferência de R$${valor.toFixed(2)} enviada para ${destino}`, false);
+
+    // Limpa campos
+    destinoEl.value = '';
+    valorEl.value = '';
+    msgEl.value = '';
+});
+</script>
