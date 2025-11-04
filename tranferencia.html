@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Quantum - Transferência</title>
+    <style>
+        :root {
+            --primary: #1f244c;
+            --accent: #78b2cb;
+            --white: #fff;
+            --bg: #f5f7fa;
+            font-family: 'Inter',sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg);
+        }
+
+        .sidebar {
+            width: 200px;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            .sidebar h2 {
+                margin-bottom: 30px;
+                font-size: 20px;
+            }
+
+            .sidebar a {
+                color: var(--white);
+                text-decoration: none;
+                margin-bottom: 10px;
+                display: block;
+                padding: 8px;
+                border-radius: 6px;
+            }
+
+                .sidebar a:hover {
+                    background: var(--accent);
+                }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+            .card input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+            }
+
+            .card button {
+                width: 100%;
+                padding: 10px;
+                background: var(--accent);
+                border: none;
+                color: var(--white);
+                border-radius: 6px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Banco Quantum</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="extrato.html">Extrato</a>
+        <a href="transferencia.html">Transferência</a>
+        <a href="login.html">Sair</a>
+    </div>
+
+    <div class="main">
+        <div class="card">
+            <h2>Nova Transferência</h2>
+            <input type="text" placeholder="Destinatário">
+            <input type="number" placeholder="Valor">
+            <button>Enviar</button>
+        </div>
+    </div>
+</body>
+</html>

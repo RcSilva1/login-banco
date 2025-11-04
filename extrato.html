@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Quantum - Extrato</title>
+    <style>
+        :root {
+            --primary: #1f244c;
+            --accent: #78b2cb;
+            --white: #fff;
+            --bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-dark: #1f244c;
+            --card-shadow: rgba(0,0,0,0.1);
+            font-family: 'Inter',sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg);
+        }
+
+        .sidebar {
+            width: 200px;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            .sidebar h2 {
+                margin-bottom: 30px;
+                font-size: 20px;
+            }
+
+            .sidebar a {
+                color: var(--white);
+                text-decoration: none;
+                margin-bottom: 10px;
+                display: block;
+                padding: 8px;
+                border-radius: 6px;
+            }
+
+                .sidebar a:hover {
+                    background: var(--accent);
+                }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        tr:nth-child(even) {
+            background: #f0f4f8;
+        }
+
+        tr:hover {
+            background: #e0e6f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Banco Quantum</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="extrato.html">Extrato</a>
+        <a href="transferencia.html">Transferência</a>
+        <a href="login.html">Sair</a>
+    </div>
+
+    <div class="main">
+        <h2>Últimas Transações</h2>
+        <table>
+            <thead><tr><th>Data</th><th>Descrição</th><th>Valor</th></tr></thead>
+            <tbody>
+                <tr><td>01/11/2025</td><td>Compra Supermercado</td><td>- R$150,00</td></tr>
+                <tr><td>28/10/2025</td><td>Depósito</td><td>+ R$1000,00</td></tr>
+                <tr><td>25/10/2025</td><td>Transferência Recebida</td><td>+ R$500,00</td></tr>
+                <tr><td>22/10/2025</td><td>Pagamento Luz</td><td>- R$120,00</td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
