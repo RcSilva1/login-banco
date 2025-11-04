@@ -13,13 +13,13 @@
             --muted: #94a3b8;
             --white: #e6eef7;
             --danger: #ff6b6b;
-            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            font-family: Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
         }
 
         html, body {
             height: 100%;
             margin: 0;
-            background: linear-gradient(180deg,#071026 0%, #0f1724 100%);
+            background: linear-gradient(180deg,#071026 0%,#0f1724 100%);
             color: var(--white)
         }
 
@@ -34,7 +34,7 @@
         .card {
             width: 920px;
             max-width: 95vw;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
             border-radius: 14px;
             padding: 18px;
             box-shadow: 0 8px 30px rgba(2,6,23,0.6);
@@ -113,12 +113,12 @@
         .link-login {
             grid-column: 1/-1;
             text-align: center;
-            margin-top: 6px;
+            margin-top: 6px
         }
 
         a {
             color: var(--accent);
-            text-decoration: none;
+            text-decoration: none
         }
 
         @media(max-width:720px) {
@@ -142,29 +142,11 @@
                 <div class="small" id="status">offline</div>
             </div>
 
-            <!-- Nome completo (visual) -->
-            <div class="quad">
-                <h3>Nome completo</h3>
-                <input id="input-name" class="input" type="text" placeholder="João da Silva">
-            </div>
-
-            <!-- CPF (visual) -->
-            <div class="quad">
-                <h3>CPF</h3>
-                <input id="input-cpf" class="input" type="text" placeholder="000.000.000-00">
-            </div>
-
-            <!-- Email (funcional) -->
-            <div class="quad">
-                <h3>Email</h3>
-                <input id="input-email" class="input" type="email" placeholder="seu@exemplo.com">
-            </div>
-
-            <!-- Senha (funcional) -->
-            <div class="quad">
-                <h3>Senha</h3>
-                <input id="input-senha" class="input" type="password" placeholder="••••••••">
-            </div>
+            <!-- Quadrantes -->
+            <div class="quad"><h3>Nome completo</h3><input class="input" type="text" placeholder="João da Silva" disabled></div>
+            <div class="quad"><h3>CPF</h3><input class="input" type="text" placeholder="000.000.000-00" disabled></div>
+            <div class="quad"><h3>Email</h3><input id="input-email" class="input" type="email" placeholder="seu@exemplo.com"></div>
+            <div class="quad"><h3>Senha</h3><input id="input-senha" class="input" type="password" placeholder="••••••••"></div>
 
             <div class="actions">
                 <div id="feedback" class="msg"></div>
@@ -199,25 +181,15 @@
         const btn = document.getElementById('btn-register');
         const feedback = document.getElementById('feedback');
 
-        function setFeedback(text, isError = false) {
-            feedback.textContent = text;
-            feedback.className = isError ? 'msg error' : 'msg';
-        }
-
-        function validarEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim());
-        }
+        function setFeedback(text, isError = false) { feedback.textContent = text; feedback.className = isError ? 'msg error' : 'msg'; }
+        function validarEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim()); }
 
         btn.addEventListener('click', async () => {
             const email = (emailEl.value || '').trim();
             const senha = (senhaEl.value || '').trim();
-
             if (!email || !senha) { setFeedback('Preencha e-mail e senha.', true); return; }
             if (!validarEmail(email)) { setFeedback('Digite um e-mail válido.', true); return; }
-
-            setFeedback('Criando usuário...', false);
-            btn.disabled = true;
-
+            setFeedback('Criando usuário...', false); btn.disabled = true;
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                 console.log("Usuário criado:", userCredential.user);
@@ -231,7 +203,7 @@
             } finally { btn.disabled = false; }
         });
 
-        senhaEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
+        senhaEl.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
     </script>
 </body>
 </html>
