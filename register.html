@@ -182,8 +182,14 @@
         const btn = document.getElementById('btn-register');
         const feedback = document.getElementById('feedback');
 
-        function setFeedback(text, isError = false) { feedback.textContent = text; feedback.className = isError ? 'msg error' : 'msg'; }
-        function validarEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim()); }
+        function setFeedback(text, isError = false) {
+            feedback.textContent = text;
+            feedback.className = isError ? 'msg error' : 'msg';
+        }
+
+        function validarEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim());
+        }
 
         btn.addEventListener('click', async () => {
             const email = (emailEl.value || '').trim();
@@ -195,7 +201,7 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                 console.log("Usuário criado:", userCredential.user);
                 setFeedback('✅ Usuário criado com sucesso! Redirecionando...', false);
-                setTimeout(() => window.location.href = 'https://bancoquantum.my.canva.site/dag3wkgmvyy/#page-0', 1000);
+                setTimeout(() => window.location.href = './dashboard.html', 1000); // <-- redireciona para dashboard
             } catch (err) {
                 console.error(err);
                 if (err.code === 'auth/email-already-in-use') { setFeedback('E-mail já cadastrado.', true); }
