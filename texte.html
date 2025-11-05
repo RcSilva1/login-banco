@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Quantum - Dashboard</title>
+    <style>
+        :root {
+            --primary: #1f244c;
+            --accent: #78b2cb;
+            --white: #ffffff;
+            --bg: #0f1724;
+            --card: #1a1f3a;
+            --text-muted: #cfd8e3;
+            --danger: #ff6b6b;
+            font-family: Inter, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background: var(--bg);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        nav {
+            width: 250px;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            nav h2 {
+                color: var(--accent);
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            nav button {
+                background: none;
+                border: none;
+                color: var(--text-muted);
+                padding: 12px;
+                text-align: left;
+                font-size: 16px;
+                cursor: pointer;
+                width: 100%;
+                margin-bottom: 6px;
+                border-radius: 6px;
+                transition: 0.2s;
+            }
+
+                nav button.active, nav button:hover {
+                    background: var(--accent);
+                    color: var(--primary);
+                }
+
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        section {
+            display: none;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+            section.active {
+                display: block;
+            }
+
+        h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        input, button.btn {
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 6px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button.btn {
+            background: var(--accent);
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 10px;
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 6px;
+            border-bottom: 1px solid #444;
+            padding: 4px 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            .table th, .table td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #444;
+            }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2>Banco Quantum</h2>
+        <button class="tab-btn active" data-tab="conta">Conta Corrente</button>
+        <button class="tab-btn" data-tab="cartoes">Cartões</button>
+        <button class="tab-btn" data-tab="investimentos">Investimentos</button>
+        <button class="tab-btn" data-tab="credito">Crédito/Empréstimos</button>
+        <button class="tab-btn" data-tab="ajuda">Ajuda</button>
+        <button class="tab-btn" id="logoutBtn">Sair</button>
+    </nav>
+
+    <main>
+        <!-- CONTA CORRENTE -->
+        <section id="conta" class="active">
+            <h3>Saldo e Extrato</h3>
+            <p>Saldo atual: <span id="saldoDisplay">R$ 0,00</span></p>
+            <table class="table">
+                <thead>
+                    <tr><th>Data</th><th>Tipo</th><th>Descrição</th><th>Valor</th></tr>
+                </thead>
+                <tbody id="extratoList"></tbody>
+            </table>
+            <h3>Transferências</h3>
+            <input type="text" id="contaDestino" placeholder="Email do destinatário">
+            <input type="number" id="valorTransfer" placeholder="Valor">
+            <button class="btn" id="enviarTransfer">Enviar Transferência</button>
+
+            <h3>Pagamentos</h3>
+            <input type="text" id="boletoCodigo" placeholder="Código do boleto">
+            <input type="number" id="boletoValor" placeholder="Valor">
+            <button class="btn" id="pagarBoleto">Pagar Boleto</button>
+        </section>
+
+        <!-- CARTÕES -->
+        <section id="cartoes">
+            <h3>Fatura</h3>
+            <p>Fatura atual: <span id="faturaCartao">R$ 0,00</span></p>
+            <h3>Limite</h3>
+            <p>Limite disponível: R$ 5.000,00</p>
+            <button class="btn" id="bloquearCartao">Bloquear cartão</button>
+            <button class="btn" id="desbloquearCartao">Desbloquear cartão</button>
+            <h3>Cartão Virtual</h3>
+            <button class="btn" id="criarCartaoVirtual">Criar Cartão Virtual</button>
+        </section>
+
+        <!-- INVESTIMENTOS -->
+        <section id="investimentos">
+            <h3>Aplicação/Resgate</h3>
+            <input type="number" id="valorInvestir" placeholder="Valor a investir">
+            <button class="btn" id="investirBtn">Investir</button>
+            <input type="number" id="valorResgatar" placeholder="Valor a resgatar">
+            <button class="btn" id="resgatarBtn">Resgatar</button>
+            <h3>Patrimônio</h3>
+            <p id="patrimonioDisplay">R$ 0,00</p>
+            <h3>Rentabilidade</h3>
+            <p id="rentabilidadeDisplay">0%</p>
+        </section>
+
+        <!-- CRÉDITO/EMPRÉSTIMOS -->
+        <section id="credito">
+            <h3>Simulação e Contratação</h3>
+            <input type="number" id="valorEmprestimo" placeholder="Valor do empréstimo">
+            <input type="number" id="parcelasEmprestimo" placeholder="Parcelas">
+            <button class="btn" id="simularEmprestimo">Simular Empréstimo</button>
+            <h3>Pagamento/Renegociação</h3>
+            <button class="btn" id="pagarParcela">Pagar Parcela</button>
+            <button class="btn" id="renegociarDivida">Renegociar Dívida</button>
+        </section>
+
+        <!-- AJUDA -->
+        <section id="ajuda">
+            <h3>FAQ</h3>
+            <p>Perguntas frequentes...</p>
+            <h3>Abrir Ticket</h3>
+            <button class="btn" onclick="window.location.href='mailto:cambuiraphael@gmail.com'">Enviar Ticket</button>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ2qO0K626TF1Dt2AdDfHtIYvg9n-G1MI",
+            authDomain: "banco-4855c.firebaseapp.com",
+            projectId: "banco-4855c",
+            storageBucket: "banco-4855c.firebasestorage.app",
+            messagingSenderId: "119137966073",
+            appId: "1:119137966073:web:975720050f403475844f28"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const tabs = document.querySelectorAll('.tab-btn');
+        const sections = document.querySelectorAll('section');
+        const logoutBtn = document.getElementById('logoutBtn');
+        let currentUser;
+
+        function showTab(tabId) {
+            sections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            tabs.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`button[data-tab="${tabId}"]`)?.classList.add('active');
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => showTab(tab.dataset.tab));
+        });
+
+        logoutBtn.addEventListener('click', async () => { await signOut(auth); window.location.href = 'login.html'; });
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) return window.location.href = 'login.html';
+            currentUser = user;
+            const userRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            if (!userSnap.exists()) {
+                await setDoc(userRef, {
+                    saldo: 5000,
+                    extrato: [],
+                    patrimonio: 0,
+                    fatura: 0,
+                    rentabilidade: 0
+                });
+            }
+            loadDashboard();
+        });
+
+        async function loadDashboard() {
+            const userRef = doc(db, "users", currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            const data = userSnap.data();
+
+            document.getElementById('saldoDisplay').textContent = `R$ ${data.saldo.toFixed(2)}`;
+            document.getElementById('extratoList').innerHTML = data.extrato.map(e => {
+                const d = new Date(e.timestamp);
+                return `<tr><td>${d.toLocaleString()}</td><td>${e.tipo}</td><td>${e.descricao}</td><td>R$ ${e.valor.toFixed(2)}</td></tr>`;
+            }).join('');
+            document.getElementById('patrimonioDisplay').textContent = `R$ ${data.patrimonio.toFixed(2)}`;
+            document.getElementById('rentabilidadeDisplay').textContent = `${data.rentabilidade}%`;
+            document.getElementById('faturaCartao').textContent = `R$ ${data.fatura.toFixed(2)}`;
+        }
+
+        // Transferência PIX/DOC
+        document.getElementById('enviarTransfer').addEventListener('click', async () => {
+            const destinoEmail = document.getElementById('contaDestino').value.trim();
+            const valor = parseFloat(document.getElementById('valorTransfer').value);
+            if (!destinoEmail || isNaN(valor) || valor <= 0) return alert('Preencha corretamente.');
+
+            const usersRef = db.collection ? db.collection('users') : null; // placeholder
+            const userRef = doc(db, "users", currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            if (valor > userSnap.data().saldo) return alert('Saldo insuficiente.');
+
+            // Atualiza usuário
+            await updateDoc(userRef, {
+                saldo: userSnap.data().saldo - valor,
+                extrato: arrayUnion({ tipo: 'Transferência', descricao: `Para ${destinoEmail}`, valor, timestamp: Date.now() })
+            });
+            alert('Transferência realizada!');
+            loadDashboard();
+        });
+
+    </script>
+</body>
+</html>
