@@ -1,103 +1,305 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco Quantum - Dashboard</title>
+    <title>Dashboard - Banco Quantum</title>
     <style>
         :root {
-            --primary: #1f244c;
+            --sidebar-bg: #1f244c;
+            --main-bg: #ffffff;
             --accent: #78b2cb;
-            --white: #ffffff;
-            --bg: #f5f7fa;
-            --card-bg: #ffffff;
-            --text-dark: #1f244c;
-            --card-shadow: rgba(0,0,0,0.1);
-            font-family: 'Inter', sans-serif;
+            --text-dark: #0f1724;
+            --text-light: #ffffff;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
-        * {
-            box-sizing: border-box;
+        body, html {
             margin: 0;
-            padding: 0;
+            height: 100%;
         }
 
         body {
             display: flex;
-            min-height: 100vh;
-            background: var(--bg);
+            background: var(--main-bg);
             color: var(--text-dark);
         }
 
-        .sidebar {
-            width: 200px;
-            background: var(--primary);
-            color: var(--white);
+        /* Sidebar */
+        #sidebar {
+            width: 220px;
+            background: var(--sidebar-bg);
+            color: var(--text-light);
             display: flex;
             flex-direction: column;
-            padding: 20px;
         }
 
-            .sidebar h2 {
-                margin-bottom: 30px;
-                font-size: 20px;
+            #sidebar h2 {
+                text-align: center;
+                padding: 15px 0;
+                margin: 0;
+                font-size: 18px;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
             }
 
-            .sidebar a {
-                color: var(--white);
-                text-decoration: none;
-                margin-bottom: 10px;
-                display: block;
-                padding: 8px;
-                border-radius: 6px;
+        .nav-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+            .nav-item:hover, .nav-item.active {
+                background: var(--accent);
             }
 
-                .sidebar a:hover {
-                    background: var(--accent);
-                }
+        .topic {
+            padding: 10px 20px;
+            color: #bbb;
+            font-size: 13px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
 
-        .main {
+        /* Main content */
+        #main {
             flex: 1;
             padding: 20px;
+            overflow-y: auto;
+            transition: margin-left 0.3s;
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px var(--card-shadow);
-            margin-bottom: 20px;
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s;
         }
 
-            .card h3 {
-                color: var(--primary);
-                margin-bottom: 10px;
+            .content-section.active {
+                display: block;
             }
 
-            .card p {
-                font-size: 18px;
-                font-weight: bold;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Forms and buttons */
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        button.submit-btn, button.open-kids-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: var(--accent);
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+            button.submit-btn:hover, button.open-kids-btn:hover {
+                opacity: 0.9;
+            }
+
+        #kidsForm {
+            margin-top: 10px;
+            display: none;
+        }
+
+        #extratoContainer {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+            margin-top: 15px;
+            background: #f7f7f7;
+        }
+
+        #extratoList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            color: #777;
+        }
+
+        #saldoAtual {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1f244c;
+        }
+
+        #greeting {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #1f244c;
+        }
     </style>
 </head>
 <body>
-    <div class="sidebar">
+
+    <div id="sidebar">
         <h2>Banco Quantum</h2>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="extrato.html">Extrato</a>
-        <a href="transferencia.html">Transfer�ncia</a>
-        <a href="login.html">Sair</a>
+        <div class="nav-item active" data-target="saldo">Saldo e Extrato</div>
+        <div class="nav-item" data-target="transferencias">Transferências</div>
+        <div class="nav-item" data-target="cartoes">Cartões</div>
+        <div class="nav-item" data-target="investimentos">Investimentos</div>
+        <div class="nav-item" data-target="emprestimos">Empréstimos</div>
+        <div class="nav-item" data-target="contaKids">Conta Kids</div>
+
+        <div class="topic">Suporte</div>
+        <div class="nav-item" data-target="duvidas">Dúvidas Frequentes</div>
+        <div class="nav-item" data-target="contato">Entrar em Contato</div>
     </div>
 
-    <div class="main">
-        <div class="card">
-            <h3>Saldo Total</h3>
-            <p>R$ 5.230,45</p>
+    <div id="main">
+        <!-- Saldo & Extrato -->
+        <div id="saldo" class="content-section active">
+            <h2 id="greeting">Olá, Usuário</h2> <!-- Nome será atualizado via JS -->
+            <p>Saldo atual: R$ <span id="saldoAtual">30.00</span></p>
+            <div id="extratoContainer">
+                <p>Nenhum extrato registrado.</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>Cart�o de Cr�dito</h3>
-            <p>Limite dispon�vel: R$ 3.500,00</p>
+
+        <!-- Transferências -->
+        <div id="transferencias" class="content-section">
+            <h2>Transferências</h2>
+            <p>Realize TED, DOC e PIX para outras contas.</p>
+            <form id="transferForm">
+                <input type="email" placeholder="Digitar email do destinatário" required>
+                <input type="number" placeholder="Valor" required>
+                <button type="submit" class="submit-btn">Enviar</button>
+            </form>
+            <p id="transferStatus"></p>
+        </div>
+
+        <!-- Cartões -->
+        <div id="cartoes" class="content-section">
+            <h2>Cartões</h2>
+            <p>Visualize faturas, limite e status dos cartões.</p>
+        </div>
+
+        <!-- Investimentos -->
+        <div id="investimentos" class="content-section">
+            <h2>Investimentos</h2>
+            <p>Aplicações, patrimônio e rentabilidade.</p>
+        </div>
+
+        <!-- Empréstimos -->
+        <div id="emprestimos" class="content-section">
+            <h2>Empréstimos</h2>
+            <p>Simulação e pagamento de empréstimos.</p>
+        </div>
+
+        <!-- Conta Kids -->
+        <div id="contaKids" class="content-section">
+            <h2>Conta Kids</h2>
+            <p>Controle financeiro da conta infantil.</p>
+            <button id="openKidsBtn" class="open-kids-btn">Abrir conta</button>
+            <form id="kidsForm">
+                <input type="text" id="kidsName" placeholder="Nome do responsável" required>
+                <input type="email" id="kidsEmail" placeholder="Email do responsável" required>
+                <input type="password" id="kidsPassword" placeholder="Senha" required>
+                <button type="submit" class="submit-btn">Criar Conta</button>
+            </form>
+            <div id="kidsStatus"></div>
+        </div>
+
+        <!-- Dúvidas Frequentes -->
+        <div id="duvidas" class="content-section">
+            <h2>Dúvidas Frequentes</h2>
+            <p>Perguntas comuns sobre o uso do banco aparecerão aqui.</p>
+        </div>
+
+        <!-- Contato -->
+        <div id="contato" class="content-section">
+            <h2>Entrar em Contato</h2>
+            <form id="contactForm">
+                <textarea id="contactMessage" placeholder="Sua mensagem" rows="5" required></textarea>
+                <button type="submit" class="submit-btn">Enviar</button>
+            </form>
+            <div id="contactStatus"></div>
         </div>
     </div>
+
+    <script>
+        // Switching tabs
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.content-section');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                const target = item.dataset.target;
+                sections.forEach(sec => sec.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Mostrar "Olá, Nome" usando localStorage
+        const greetingEl = document.getElementById('greeting');
+        const userName = localStorage.getItem('userName') || 'Usuário';
+        greetingEl.textContent = `Olá, ${userName}`;
+
+        // Contact form
+        const userEmail = localStorage.getItem('userEmail') || '';
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const message = document.getElementById('contactMessage').value;
+            if (!userEmail) { alert('Erro: e-mail do usuário não encontrado.'); return; }
+            window.location.href = `mailto:cambuiraphael@gmail.com?subject=Mensagem do usuário&body=Mensagem: ${message}%0ADe: ${userEmail}`;
+            document.getElementById('contactStatus').textContent = 'Mensagem pronta para envio!';
+            this.reset();
+        });
+
+        // Conta Kids toggle
+        const openKidsBtn = document.getElementById('openKidsBtn');
+        const kidsForm = document.getElementById('kidsForm');
+        const kidsStatus = document.getElementById('kidsStatus');
+        openKidsBtn.addEventListener('click', () => {
+            kidsForm.style.display = kidsForm.style.display === 'block' ? 'none' : 'block';
+        });
+        kidsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('kidsName').value;
+            const email = document.getElementById('kidsEmail').value;
+            const password = document.getElementById('kidsPassword').value;
+            const kidsAccount = { name, email, password, saldo: 30 };
+            localStorage.setItem('kidsAccount', JSON.stringify(kidsAccount));
+            kidsStatus.textContent = `Conta criada com sucesso! Saldo atual: R$ 30,00`;
+            kidsForm.reset();
+            kidsForm.style.display = 'none';
+        });
+
+        // Transferência simples
+        document.getElementById('transferForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target[0].value;
+            const valor = parseFloat(e.target[1].value);
+            if (!email || isNaN(valor)) {
+                document.getElementById('transferStatus').textContent = 'Preencha corretamente.';
+                return;
+            }
+            document.getElementById('transferStatus').textContent = `Pix de R$ ${valor.toFixed(2)} enviado para ${email}.`;
+            e.target.reset();
+        });
+    </script>
+
 </body>
 </html>
