@@ -170,7 +170,7 @@
     <div id="main">
         <!-- Saldo & Extrato -->
         <div id="saldo" class="content-section active">
-            <h2 id="greeting">Olá, Usuário</h2> <!-- Nome será atualizado via JS -->
+            <h2 id="greeting">Olá, Usuário</h2>
             <p>Saldo atual: R$ <span id="saldoAtual">30.00</span></p>
             <div id="extratoContainer">
                 <p>Nenhum extrato registrado.</p>
@@ -257,6 +257,62 @@
         const userName = localStorage.getItem('userName') || 'Usuário';
         greetingEl.textContent = `Olá, ${userName}`;
 
+        // Inicializar saldo e extrato
+        const saldoEl = document.getElementById('saldoAtual');
+        let saldo = parseFloat(localStorage.getItem('userBalance'));
+        if (isNaN(saldo)) saldo = 30;
+        saldoEl.textContent = saldo.toFixed(2);
+
+        const extratoContainer = document.getElementById('extratoContainer');
+        let extrato = JSON.parse(localStorage.getItem('extrato')) || [];
+        const renderExtrato = () => {
+            if (extrato.length === 0) {
+                extratoContainer.innerHTML = '<p>Nenhum extrato registrado.</p>';
+            } else {
+                extratoContainer.innerHTML = '<ul id="extratoList"></ul>';
+                const extratoList = document.getElementById('extratoList');
+                extrato.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    extratoList.appendChild(li);
+                });
+            }
+        };
+        renderExtrato();
+
+        // Transferência completa
+        document.getElementById('transferForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target[0].value;
+            const valor = parseFloat(e.target[1].value);
+            const transferStatus = document.getElementById('transferStatus');
+
+            if (!email || isNaN(valor) || valor <= 0) {
+                transferStatus.textContent = 'Preencha corretamente.';
+                return;
+            }
+
+            if (valor > saldo) {
+                transferStatus.textContent = 'Saldo insuficiente.';
+                return;
+            }
+
+            // Atualiza saldo
+            saldo -= valor;
+            saldoEl.textContent = saldo.toFixed(2);
+            localStorage.setItem('userBalance', saldo);
+
+            // Atualiza extrato
+            const now = new Date();
+            const extratoItem = `${now.toLocaleString()}: Pix de R$ ${valor.toFixed(2)} enviado para ${email}`;
+            extrato.push(extratoItem);
+            localStorage.setItem('extrato', JSON.stringify(extrato));
+            renderExtrato();
+
+            transferStatus.textContent = 'Transferência realizada com sucesso!';
+            e.target.reset();
+        });
+
         // Contact form
         const userEmail = localStorage.getItem('userEmail') || '';
         document.getElementById('contactForm').addEventListener('submit', function (e) {
@@ -285,19 +341,6 @@
             kidsStatus.textContent = `Conta criada com sucesso! Saldo atual: R$ 30,00`;
             kidsForm.reset();
             kidsForm.style.display = 'none';
-        });
-
-        // Transferência simples
-        document.getElementById('transferForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = e.target[0].value;
-            const valor = parseFloat(e.target[1].value);
-            if (!email || isNaN(valor)) {
-                document.getElementById('transferStatus').textContent = 'Preencha corretamente.';
-                return;
-            }
-            document.getElementById('transferStatus').textContent = `Pix de R$ ${valor.toFixed(2)} enviado para ${email}.`;
-            e.target.reset();
         });
     </script>
 
