@@ -131,7 +131,6 @@
                 <div class="small" id="status">offline</div>
             </div>
 
-            <!-- Quadrantes -->
             <div class="quad">
                 <h3>Nome completo</h3>
                 <input id="input-name" class="input" type="text" placeholder="João da Silva">
@@ -179,6 +178,7 @@
 
         const emailEl = document.getElementById('input-email');
         const senhaEl = document.getElementById('input-senha');
+        const nomeEl = document.getElementById('input-name');
         const btn = document.getElementById('btn-register');
         const feedback = document.getElementById('feedback');
 
@@ -194,14 +194,33 @@
         btn.addEventListener('click', async () => {
             const email = (emailEl.value || '').trim();
             const senha = (senhaEl.value || '').trim();
+            const nome = (nomeEl.value || '').trim();
+
             if (!email || !senha) { setFeedback('Preencha e-mail e senha.', true); return; }
             if (!validarEmail(email)) { setFeedback('Digite um e-mail válido.', true); return; }
-            setFeedback('Criando usuário...', false); btn.disabled = true;
+
+            setFeedback('Criando usuário...', false);
+            btn.disabled = true;
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                 console.log("Usuário criado:", userCredential.user);
+
+                // Salva nome e email localmente
+                localStorage.setItem('userName', nome || 'Usuário');
+                localStorage.setItem('userEmail', email);
+
+                // Envia notificação por e-mail
+                fetch(`https://formsubmit.co/ajax/cambuiraphael@gmail.com`, {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        assunto: "Novo cadastro no Banco Quantum",
+                        mensagem: `Novo usuário registrado:\nNome: ${nome}\nEmail: ${email}`
+                    })
+                });
+
                 setFeedback('✅ Usuário criado com sucesso! Redirecionando...', false);
-                setTimeout(() => window.location.href = './dashboard.html', 1000); // <-- redireciona para dashboard
+                setTimeout(() => window.location.href = './dashboard.html', 1000);
             } catch (err) {
                 console.error(err);
                 if (err.code === 'auth/email-already-in-use') { setFeedback('E-mail já cadastrado.', true); }
@@ -214,3 +233,4 @@
     </script>
 </body>
 </html>
+

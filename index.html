@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8" />
@@ -131,29 +132,10 @@
                 <div class="small" id="status">offline</div>
             </div>
 
-            <!-- Quadrante 1: Nome completo (apenas visual) -->
-            <div class="quad" id="q-nome" aria-label="Nome completo">
-                <h3>Nome completo</h3>
-                <input id="input-name" class="input" type="text" placeholder="João da Silva" />
-            </div>
-
-            <!-- Quadrante 2: CPF (apenas visual) -->
-            <div class="quad" id="q-cpf" aria-label="CPF">
-                <h3>CPF</h3>
-                <input id="input-cpf" class="input" type="text" placeholder="000.000.000-00" />
-            </div>
-
-            <!-- Quadrante 3: Email (funcional) -->
-            <div class="quad" id="q-email" aria-label="Email">
-                <h3>Email</h3>
-                <input id="input-email" class="input" type="email" placeholder="seu@exemplo.com" />
-            </div>
-
-            <!-- Quadrante 4: Senha (funcional) -->
-            <div class="quad" id="q-senha" aria-label="Senha">
-                <h3>Senha</h3>
-                <input id="input-senha" class="input" type="password" placeholder="••••••••" />
-            </div>
+            <div class="quad"><h3>Nome completo</h3><input id="input-name" class="input" type="text" placeholder="João da Silva" /></div>
+            <div class="quad"><h3>CPF</h3><input id="input-cpf" class="input" type="text" placeholder="000.000.000-00" /></div>
+            <div class="quad"><h3>Email</h3><input id="input-email" class="input" type="email" placeholder="seu@exemplo.com" /></div>
+            <div class="quad"><h3>Senha</h3><input id="input-senha" class="input" type="password" placeholder="••••••••" /></div>
 
             <div class="actions">
                 <div id="feedback" class="msg"></div>
@@ -162,7 +144,6 @@
         </div>
     </div>
 
-    <!-- Firebase (modular) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -182,6 +163,7 @@
 
         const emailEl = document.getElementById('input-email');
         const senhaEl = document.getElementById('input-senha');
+        const nomeEl = document.getElementById('input-name');
         const btn = document.getElementById('btn-login');
         const feedback = document.getElementById('feedback');
 
@@ -189,7 +171,6 @@
             feedback.textContent = text;
             feedback.className = isError ? 'msg error' : 'msg';
         }
-
         function validarEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim());
         }
@@ -197,43 +178,32 @@
         btn.addEventListener('click', async () => {
             const email = (emailEl.value || '').trim();
             const senha = (senhaEl.value || '').trim();
+            const nome = (nomeEl.value || '').trim();
 
-            if (!email || !senha) {
-                setFeedback('Preencha e-mail e senha.', true);
-                return;
-            }
-            if (!validarEmail(email)) {
-                setFeedback('Digite um e-mail válido.', true);
-                return;
-            }
+            if (!email || !senha) { setFeedback('Preencha e-mail e senha.', true); return; }
+            if (!validarEmail(email)) { setFeedback('Digite um e-mail válido.', true); return; }
 
             setFeedback('Aguarde...', false);
             btn.disabled = true;
-
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-                console.log("Login OK:", userCredential.user);
+
+                // salva nome e email localmente para o dashboard usar
+                localStorage.setItem('userName', nome || 'Usuário');
+                localStorage.setItem('userEmail', email);
+
                 setFeedback('✅ Login bem-sucedido! Redirecionando...', false);
                 setTimeout(() => window.location.href = 'dashboard.html', 900);
             } catch (err) {
                 console.error(err);
-                if (err && err.code === 'auth/user-not-found') {
-                    setFeedback('Usuário não encontrado.', true);
-                } else if (err && err.code === 'auth/wrong-password') {
-                    setFeedback('Senha incorreta.', true);
-                } else if (err && err.code === 'auth/invalid-email') {
-                    setFeedback('E-mail com formato inválido.', true);
-                } else {
-                    setFeedback('Erro: ' + (err.message || 'Falha no login'), true);
-                }
-            } finally {
-                btn.disabled = false;
-            }
+                if (err.code === 'auth/user-not-found') setFeedback('Usuário não encontrado.', true);
+                else if (err.code === 'auth/wrong-password') setFeedback('Senha incorreta.', true);
+                else if (err.code === 'auth/invalid-email') setFeedback('E-mail inválido.', true);
+                else setFeedback('Erro: ' + (err.message || 'Falha no login'), true);
+            } finally { btn.disabled = false; }
         });
 
-        senhaEl.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') btn.click();
-        });
+        senhaEl.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
     </script>
 </body>
 </html>
