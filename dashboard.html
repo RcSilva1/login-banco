@@ -28,12 +28,14 @@
 
         /* Sidebar */
         #sidebar {
-            width: 220px;
+            width: 260px;
             background: var(--sidebar-bg);
             color: var(--text-light);
             display: flex;
             flex-direction: column;
             transition: width 0.3s;
+            height: 100vh; /* ocupa toda a altura da tela */
+            overflow-y: auto;
         }
 
             #sidebar h2 {
@@ -293,6 +295,36 @@
             margin: 4px 0;
         }
 
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px;
+        }
+
+            .faq-question::after {
+                content: "+";
+                position: absolute;
+                right: 0;
+                top: 0;
+                font-weight: bold;
+            }
+
+            .faq-question.active::after {
+                content: "-";
+            }
+
+        .faq-answer {
+            display: none;
+            padding: 8px 0 0 0;
+            color: #555;
+        }
+
 
     </style>
 </head>
@@ -303,13 +335,19 @@
             Banco Quantum
             <button id="toggleSidebar">☰</button>
         </h2>
+        <div class="topic">Pagina Principal</div>
         <div class="nav-item active" data-target="saldo">Saldo e Extrato</div>
         <div class="nav-item" data-target="transferencias">Transferências</div>
         <div class="nav-item" data-target="cartoes">Cartões</div>
-        <div class="nav-item" data-target="investimentos">Investimentos</div>
         <div class="nav-item" data-target="cdb">CDB</div>
         <div class="nav-item" data-target="emprestimos">Empréstimos</div>
         <div class="nav-item" data-target="contaKids">Conta Kids</div>
+
+        <div class="topic">Informações</div>
+        <div class="nav-item" data-target="sobreBanco">Sobre o Banco</div>
+        <div class="nav-item" data-target="seguranca">Segurança</div>
+        <div class="nav-item" data-target="termos">Termos e Condições</div>
+        <div class="nav-item" data-target="contatoRapido">Contato Rápido</div>
 
         <div class="topic">Suporte</div>
         <div class="nav-item" data-target="duvidas">Dúvidas Frequentes</div>
@@ -328,7 +366,7 @@
         <div id="cdb" class="content-section">
             <h2>Investimento em CDB</h2>
             <div id="cdbContainer">
-                <p><strong>CDI atual:</strong> 10.65% a.a (simulado)</p>
+                <p><strong>CDI atual:</strong> 13.65% a.a</p>
                 <p><strong>Rendimento CDB:</strong> 110% do CDI</p>
                 <p><strong>Saldo investido:</strong> R$ <span id="cdbSaldo">0.00</span></p>
                 <p><strong>Rendimento acumulado:</strong> R$ <span id="cdbLucro">0.00</span></p>
@@ -383,15 +421,15 @@
             <h2>Cartões</h2>
             <div class="cards-container">
                 <div class="card-item" data-card="essencial">
-                    <img src="https://via.placeholder.com/220x140?text=Cartão+Essencial" alt="Cartão Essencial">
+                    <img src="essencial.png" alt="Cartão Essencial">
                     <h3>Essencial</h3>
                 </div>
                 <div class="card-item" data-card="premium">
-                    <img src="https://via.placeholder.com/220x140?text=Cartão+Premium" alt="Cartão Premium">
+                    <img src="premium.png" alt="Cartão Premium">
                     <h3>Premium</h3>
                 </div>
                 <div class="card-item" data-card="kids">
-                    <img src="https://via.placeholder.com/220x140?text=Cartão+Kids" alt="Cartão Kids">
+                    <img src="kidr.png" alt="Cartão Kids">
                     <h3>Kids</h3>
                 </div>
             </div>
@@ -479,8 +517,55 @@
             </div>
         </div>
 
-        <div id="duvidas" class="content-section"><h2>Dúvidas Frequentes</h2></div>
+        <div id="duvidas" class="content-section">
+            <h2>Dúvidas Frequentes</h2>
+            <div class="faq-item">
+                <div class="faq-question">Como faço para abrir uma Conta Kids?</div>
+                <div class="faq-answer">Para abrir uma Conta Kids, vá até a seção "Conta Kids" no dashboard, preencha os dados da criança e configure a mesada conforme desejado.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Qual é o prazo para o CDB render?</div>
+                <div class="faq-answer">O CDB rende diariamente, mas o cálculo de rendimento mostrado na simulação considera o período anual conforme a taxa selecionada.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Como funciona o pagamento de parcelas do empréstimo?</div>
+                <div class="faq-answer">Você pode pagar cada parcela manualmente clicando em "Pagar Próxima Parcela". O saldo será debitado automaticamente da sua conta principal.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Posso investir mais de uma vez no CDB?</div>
+                <div class="faq-answer">Sim! Você pode investir quantas vezes quiser, desde que tenha saldo disponível em sua conta.</div>
+            </div>
+        </div>
+
         <div id="contato" class="content-section"><h2>Entrar em Contato</h2></div>
+
+        <div id="sobreBanco" class="content-section">
+            <h2>Sobre o Banco Quantum</h2>
+            <p>O Banco Quantum é uma instituição digital inovadora, oferecendo soluções financeiras inteligentes, seguras e acessíveis a todos os clientes.</p>
+        </div>
+
+        <div id="seguranca" class="content-section">
+            <h2>Segurança</h2>
+            <ul>
+                <li>Não compartilhe sua senha com ninguém.</li>
+                <li>Ative a autenticação em dois fatores para mais proteção.</li>
+                <li>Verifique sempre os e-mails ou mensaingens antes de clicar em links.</li>
+            </ul>
+        </div>
+
+        <div id="termos" class="content-section">
+            <h2>Termos e Condições</h2>
+            <p>Leia atentamente nossos termos e condições para entender seus direitos e responsabilidades ao usar os serviços do Banco Quantum.</p>
+        </div>
+
+        <div id="contatoRapido" class="content-section">
+            <h2>Contato Rápido</h2>
+            <p>Email: suporte@bancoquantum.com</p>
+            <p>Telefone: (11) 4002-8922</p>
+            <p>Chat: disponível no app 24h</p>
+        </div>
+
+
     </div>
 
     <script>
@@ -510,7 +595,7 @@
         greetingEl.textContent = `Olá, ${userName}`;
 
         const saldoEl = document.getElementById('saldoAtual');
-        let saldo = parseFloat(localStorage.getItem('userBalance')) || 30;
+        let saldo = parseFloat(localStorage.getItem('userBalance')) || 100;
         saldoEl.textContent = saldo.toFixed(2);
 
         // --- CDB funcional (mantive tudo) ---
@@ -520,7 +605,7 @@
         const cdbLucroEl = document.getElementById('cdbLucro');
         const valorCdbEl = document.getElementById('valorCdb');
         const cdbMsgEl = document.getElementById('cdbMsg');
-        const cdi = 10.65 / 100;
+        const cdi = 13.65 / 100;
         const rendimentoAnual = cdi * 1.10;
         const rendimentoDiario = rendimentoAnual / 365;
 
@@ -877,15 +962,17 @@
         const cardsInfo = {
             essencial: {
                 titulo: "Cartão Essencial",
-                descricao: "Cartão básico com zero anuidade, ideal para o dia a dia e controle total via app."
+                descricao: `Cashback de 0,5% em todas as compras, zero anuidade e programa de proteção de compras.`
+                     
+                 
             },
             premium: {
                 titulo: "Cartão Premium",
-                descricao: "Cartão dourado com cashback de 2%, benefícios exclusivos e acesso a salas VIP."
+                descricao: "Cashback de 1,5% em todas as compras, programa de pontos exclusivo, programa de proteção de compras, poncierge 24h, seguro viagem internacional, acesso VIP em aeorportos."
             },
             kids: {
                 titulo: "Cartão Kids",
-                descricao: "Cartão educativo sem crédito, feito para ensinar as crianças a lidarem com dinheiro."
+                descricao: "Cashback de 0,5%, crontrole de gastos, zero anuidade, programa de proteção de compras, escolha de cor e monitoramento"
             }
         };
 
@@ -1036,6 +1123,18 @@
             if (emprestimo.pagas === emprestimo.parcelas) {
                 alert('Empréstimo totalmente quitado!');
             }
+        });
+
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.classList.toggle('active');
+                const answer = q.nextElementSibling;
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                } else {
+                    answer.style.display = 'block';
+                }
+            });
         });
 
 
