@@ -288,6 +288,12 @@
             gap: 10px;
             margin-top: 15px;
         }
+
+        #emprestimoResumo p {
+            margin: 4px 0;
+        }
+
+
     </style>
 </head>
 <body>
@@ -404,8 +410,29 @@
         </div>
 
         <div id="investimentos" class="content-section"><h2>Investimentos</h2></div>
-        <div id="emprestimos" class="content-section"><h2>Empréstimos</h2></div>
+        <div id="emprestimos" class="content-section">
 
+            <div id="emprestimoResumo">
+                <p id="emprestimoStatus">Parcelas pagas: 0 / 0</p>
+                <button id="pagarParcelaBtn" class="submit-btn">Pagar Próxima Parcela</button>
+            </div>
+
+            <h3>Simulação de Empréstimo</h3>
+            <input type="number" id="valorSimEmprestimo" placeholder="Valor do empréstimo (R$)">
+            <select id="parcelasSim">
+                <option value="1">1 mês</option>
+                <option value="3">3 meses</option>
+                <option value="6">6 meses</option>
+                <option value="12">12 meses</option>
+                <option value="24">24 meses</option>
+            </select>
+            <button id="simularEmprestimoBtn" class="submit-btn">Simular Empréstimo</button>
+            <button id="confirmarEmprestimoBtn" class="submit-btn" disabled>Confirmar Empréstimo</button>
+            <canvas id="simEmprestimoChart" height="100" style="margin-top:12px;"></canvas>
+            <p>Saldo da conta: R$ <span id="saldoConta">0.00</span></p>
+
+
+        </div>
         <!-- CONTA KIDS: Abaixo é onde inseri toda a funcionalidade pedida -->
         <div id="contaKids" class="content-section">
             <h2>Conta Kids</h2>
@@ -424,7 +451,7 @@
                         <option value="Responsável">Responsável</option>
                     </select>
                     <input type="number" id="depositoInicial" placeholder="Depósito inicial (opcional, R$)" min="0" step="0.01">
-                    <button type="submit" class="submit-btn">Criar Conta Kids (simbólica)</button>
+                    <button type="submit" class="submit-btn">Criar Conta Kids</button>
                 </form>
 
                 <div id="kidsConfig" style="display:none; margin-top:12px;">
@@ -890,6 +917,127 @@
         popup.addEventListener("click", (e) => {
             if (e.target === popup) popup.style.display = "none";
         });
+
+        let simEmprestimoChart = null;
+
+        document.getElementById('simularEmprestimoBtn').addEventListener('click', () => {
+            const valor = parseFloat(document.getElementById('valorSimEmprestimo').value);
+            const parcelas = parseInt(document.getElementById('parcelasSim').value, 10);
+
+            if (isNaN(valor) || valor <= 0) return alert('Valor do empréstimo inválido.');
+            if (isNaN(parcelas) || parcelas <= 0) return alert('Número de parcelas inválido.');
+
+            const juros = 0.078; // 7,8% ao mês
+            const parcelaValor = valor * (juros * Math.pow(1 + juros, parcelas)) / (Math.pow(1 + juros, parcelas) - 1);
+
+            const totalPago = [];
+            const labels = [];
+            let acumulado = 0;
+            for (let m = 1; m <= parcelas; m++) {
+                acumulado += parcelaValor;
+                totalPago.push(parseFloat(acumulado.toFixed(2)));
+                labels.push(`Mês ${m}`);
+            }
+
+            const ctxEmprestimo = document.getElementById('simEmprestimoChart').getContext('2d');
+            if (!simEmprestimoChart) {
+                simEmprestimoChart = new Chart(ctxEmprestimo, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Total Pago (R$)',
+                            data: totalPago,
+                            borderColor: '#78b2cb',
+                            fill: false,
+                            tension: 0.1,
+                            pointRadius: 3
+                        }]
+                    },
+                    options: {
+                        scales: { y: { beginAtZero: true } },
+                        animation: { duration: 500 }
+                    }
+                });
+            } else {
+                simEmprestimoChart.data.labels = labels;
+                simEmprestimoChart.data.datasets[0].data = totalPago;
+                simEmprestimoChart.update();
+            }
+
+            // Habilita botão para confirmar empréstimo
+            document.getElementById('confirmarEmprestimoBtn').disabled = false;
+
+        // Botão confirmar empréstimo
+        document.getElementById('confirmarEmprestimoBtn').addEventListener('click', () => {
+            const valor = parseFloat(document.getElementById('valorSimEmprestimo').value);
+            const parcelas = parseInt(document.getElementById('parcelasSim').value, 10);
+            if (isNaN(valor) || valor <= 0) return alert('Valor do empréstimo inválido.');
+            if (isNaN(parcelas) || parcelas <= 0) return alert('Número de parcelas inválido.');
+
+            const juros = 0.078; // 7,8% ao mês
+            const parcelaValor = valor * (juros * Math.pow(1 + juros, parcelas)) / (Math.pow(1 + juros, parcelas) - 1);
+
+            const emprestimo = {
+                total: valor,
+                parcelas,
+                parcelaValor: parseFloat(parcelaValor.toFixed(2)),
+                pagas: 0
+            };
+
+            // Salva no localStorage
+            localStorage.setItem('emprestimo', JSON.stringify(emprestimo));
+
+            // Adiciona saldo
+            saldo += valor;
+            localStorage.setItem('userBalance', saldo);
+            saldoEl.textContent = saldo.toFixed(2);
+            appendExtrato(`Empréstimo de R$ ${valor.toFixed(2)} confirmado.`);
+
+            document.getElementById('valorSimEmprestimo').value = '';
+            document.getElementById('confirmarEmprestimoBtn').disabled = true;
+
+            // Atualiza status inicial da parcela
+            document.getElementById('emprestimoStatus').textContent =
+                `Parcelas pagas: ${emprestimo.pagas} / ${emprestimo.parcelas}`;
+
+            alert(`Empréstimo de R$ ${valor.toFixed(2)} adicionado à sua conta!`);
+        });
+
+        });
+
+        document.getElementById('pagarParcelaBtn').addEventListener('click', () => {
+            const emprestimo = JSON.parse(localStorage.getItem('emprestimo') || 'null');
+            if (!emprestimo) return alert('Não há empréstimos ativos.');
+
+            if (emprestimo.pagas >= emprestimo.parcelas) {
+                alert('Todas as parcelas já foram pagas!');
+                return;
+            }
+
+            if (saldo < emprestimo.parcelaValor) {
+                alert('Saldo insuficiente para pagar a parcela!');
+                return;
+            }
+
+            // Deduz do saldo
+            saldo -= emprestimo.parcelaValor;
+            saldoEl.textContent = saldo.toFixed(2);
+            appendExtrato(`Parcela do empréstimo paga: R$ ${emprestimo.parcelaValor.toFixed(2)}`);
+
+            // Atualiza parcelas pagas
+            emprestimo.pagas += 1;
+            localStorage.setItem('emprestimo', JSON.stringify(emprestimo));
+
+            // Atualiza status
+            document.getElementById('emprestimoStatus').textContent =
+                `Parcelas pagas: ${emprestimo.pagas} / ${emprestimo.parcelas}`;
+
+            if (emprestimo.pagas === emprestimo.parcelas) {
+                alert('Empréstimo totalmente quitado!');
+            }
+        });
+
 
     </script>
 
