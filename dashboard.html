@@ -324,8 +324,6 @@
             padding: 8px 0 0 0;
             color: #555;
         }
-
-
     </style>
 </head>
 <body>
@@ -341,13 +339,13 @@
         <div class="nav-item" data-target="cartoes">Cartões</div>
         <div class="nav-item" data-target="cdb">CDB</div>
         <div class="nav-item" data-target="emprestimos">Empréstimos</div>
+        <div class="nav-item" data-target="financiamento">Financiamento</div>
         <div class="nav-item" data-target="contaKids">Conta Kids</div>
 
         <div class="topic">Informações</div>
         <div class="nav-item" data-target="sobreBanco">Sobre o Banco</div>
         <div class="nav-item" data-target="seguranca">Segurança</div>
         <div class="nav-item" data-target="termos">Termos e Condições</div>
-        <div class="nav-item" data-target="contatoRapido">Contato Rápido</div>
 
         <div class="topic">Suporte</div>
         <div class="nav-item" data-target="duvidas">Dúvidas Frequentes</div>
@@ -468,9 +466,37 @@
             <button id="confirmarEmprestimoBtn" class="submit-btn" disabled>Confirmar Empréstimo</button>
             <canvas id="simEmprestimoChart" height="100" style="margin-top:12px;"></canvas>
             <p>Saldo da conta: R$ <span id="saldoConta">0.00</span></p>
+        </div>
+        <!---------financiamento-->
+        <div id="financiamento" class="content-section">
 
+            <div id="financiamentoResumo">
+                <p id="financiamentoStatus">Parcelas pagas: 0 / 0</p>
+                <button id="pagarParcelaFinBtn" class="submit-btn">Pagar Próxima Parcela</button>
+            </div>
+
+            <h3>Simulação de Financiamento</h3>
+            <input type="number" id="valorSimFinanciamento" placeholder="Valor do financiamento (R$)" min="25000">
+
+            <select id="parcelasSimFinanciamento">
+                <option value="1">1 ano</option>
+                <option value="2">2 anos</option>
+                <option value="3">3 anos</option>
+                <option value="5">5 anos</option>
+                <option value="10">10 anos</option>
+                <option value="15">15 anos</option>
+            </select>
+
+            <button id="simularFinanciamentoBtn" class="submit-btn">Simular Financiamento</button>
+            <button id="confirmarFinanciamentoBtn" class="submit-btn" disabled>Confirmar Financiamento</button>
+
+            <canvas id="simFinanciamentoChart" height="100" style="margin-top:12px;"></canvas>
+
+            <p>Saldo da conta: R$ <span id="saldoContaFinanciamento">0.00</span></p>
 
         </div>
+
+
         <!-- CONTA KIDS: Abaixo é onde inseri toda a funcionalidade pedida -->
         <div id="contaKids" class="content-section">
             <h2>Conta Kids</h2>
@@ -537,36 +563,143 @@
             </div>
         </div>
 
-        <div id="contato" class="content-section"><h2>Entrar em Contato</h2></div>
-
-        <div id="sobreBanco" class="content-section">
-            <h2>Sobre o Banco Quantum</h2>
-            <p>O Banco Quantum é uma instituição digital inovadora, oferecendo soluções financeiras inteligentes, seguras e acessíveis a todos os clientes.</p>
-        </div>
-
-        <div id="seguranca" class="content-section">
-            <h2>Segurança</h2>
-            <ul>
-                <li>Não compartilhe sua senha com ninguém.</li>
-                <li>Ative a autenticação em dois fatores para mais proteção.</li>
-                <li>Verifique sempre os e-mails ou mensaingens antes de clicar em links.</li>
-            </ul>
-        </div>
-
-        <div id="termos" class="content-section">
-            <h2>Termos e Condições</h2>
-            <p>Leia atentamente nossos termos e condições para entender seus direitos e responsabilidades ao usar os serviços do Banco Quantum.</p>
-        </div>
-
-        <div id="contatoRapido" class="content-section">
-            <h2>Contato Rápido</h2>
-            <p>Email: suporte@bancoquantum.com</p>
+        <div id="contato" class="content-section">
+            <h2>Entrar em Contato</h2>
+            <p>Email: <a href="mailto:suporte@bancoquantum.com">suporte@bancoquantum.com</a></p>
             <p>Telefone: (11) 4002-8922</p>
             <p>Chat: disponível no app 24h</p>
         </div>
 
+        <div id="sobreBanco" class="content-section">
+            <h2>Sobre o Banco Quantum</h2>
+            <p>
+                O Banco Quantum surgiu como um projeto escolar no Instituto Genoma, impulsionado pela curiosidade de jovens visionários que tinham certeza de que o futuro do setor financeiro pertencia à união entre tecnologia, inovação e confiança.  O que começou como um simples exercício acadêmico logo ultrapassou os limites da sala de aula e se transformou em uma empresa sólida e inovadora que hoje faz parte da base econômica de milhares de brasileiros.
+            <p>
+                A missão do Quantum Bank, desde a sua fundação, é redefinir a experiência bancária: oferecer, de forma simples, segura e acessível, soluções financeiras para todos.  É aproximar pessoas e oportunidades através da oferta de produtos que atendem às necessidades de um mundo cada vez mais digital, sem perder a essência de transparência e ética que sempre guiou nossa trajetória.
+            <p>
+                Com sua estrutura moderna e equipe altamente qualificada, a Quantum se destaca por estar à frente das tendências e ser capaz de se adaptar rapidamente ao novo mercado.  Investimentos constantes em tecnologia, segurança da informação e atendimento humanizado nos permitem oferecer uma experiência única a cada cliente por meio de um serviço personalizado e eficiente.
+            <p>
+                Hoje em dia, o Quantum Bank tem atuado de maneira responsável e sustentável, comprometido com o desenvolvimento do Brasil, tanto econômico quanto social.  Nossos programas de incentivo à educação financeira, crédito responsável e inovação verde reforçam nosso compromisso de construir um futuro mais justo e equilibrado.
+            <p>
+                More than a bank, Quantum is a digital financial ecosystem that connects people, ideas, and businesses.  Our vision is to be a reference in modernity, reliability, and positive impact, contributing to the growth of our clients and the country.
+            <p>
+        </div>
 
+        <div id="seguranca" class="content-section">
+            <h2>Segurança</h2>
+            <p>
+                1. A segurança dos nossos clientes é uma das maiores prioridades do Banco Quantum. Trabalhamos continuamente para garantir que todas as suas informações e transações estejam protegidas com os mais altos padrões de tecnologia e confidencialidade.
+            <p>
+                2. Confira algumas das nossas principais recomendações e medidas de proteção:
+            <p>
+                3. Não compartilhe sua senha com ninguém, nem mesmo com funcionários do banco. O Banco Quantum nunca solicita dados pessoais ou senhas por e-mail, telefone ou mensagens.
+            <p>
+                4. Ative a autenticação em dois fatores (2FA) em sua conta para adicionar uma camada extra de proteção ao login e às transações.
+            <p>
+                5. Verifique sempre o remetente de e-mails, SMS ou mensagens antes de clicar em qualquer link. Em caso de dúvida, acesse o site oficial digitando o endereço manualmente no navegador.
+            <p>
+                6. Evite acessar sua conta em redes Wi-Fi públicas ou compartilhadas, pois podem ser menos seguras. Prefira conexões privadas e protegidas por senha.
+            <p>
+                7. Utilize senhas fortes, combinando letras maiúsculas e minúsculas, números e símbolos. Evite informações óbvias como datas de nascimento ou nomes pessoais.
+            <p>
+                8. Mantenha seus dispositivos atualizados, incluindo sistema operacional, antivírus e navegadores. Atualizações frequentes ajudam a corrigir vulnerabilidades de segurança.
+            <p>
+                9. Monitore regularmente suas transações, e entre em contato imediatamente com o suporte do Banco Quantum em caso de qualquer atividade suspeita.
+            <p>
+                10. Jamais forneça códigos de verificação ou token a terceiros. Esses códigos são pessoais e garantem o acesso direto à sua conta.
+            <p>
+                11. Atenção a golpes de engenharia social: golpistas podem se passar por representantes do banco. Sempre confirme a identidade do contato pelos canais oficiais.
+            <p>
+                12. Bloqueie seu aplicativo ou cartão imediatamente se perder o celular ou suspeitar de acesso indevido.
+            <p>
+                No Banco Quantum, utilizamos criptografia avançada, detecção de fraudes em tempo real e monitoramento contínuo para proteger cada movimentação feita pelos nossos clientes. Nossa equipe de segurança cibernética está sempre atualizada e pronta para agir rapidamente diante de qualquer tentativa de invasão ou fraude.
+            </p>
+        </div>
+
+        <div id="termos" class="content-section">
+            <h2>Termos e Condições de Uso — Banco Quantum</h2>
+
+            <p>Bem-vindo ao <strong>Banco Quantum</strong>. Estes Termos e Condições de Uso regulam o acesso e a utilização de todos os serviços, produtos e plataformas digitais oferecidos pelo Banco Quantum, incluindo o site, aplicativo móvel e demais canais eletrônicos.</p>
+
+            <p>Ao acessar ou utilizar qualquer serviço do Banco Quantum, você declara ter lido, compreendido e aceitado integralmente os presentes Termos.</p>
+
+            <h3>1. Definições</h3>
+            <p>
+                <strong>Banco Quantum:</strong> Instituição financeira responsável pelos serviços digitais e físicos aqui descritos.<br>
+                <strong>Usuário/Cliente:</strong> Pessoa física ou jurídica que utiliza os serviços do Banco Quantum.<br>
+                <strong>Plataforma:</strong> Website, aplicativo ou sistema digital disponibilizado pelo Banco Quantum.<br>
+                <strong>Conta Digital:</strong> Ambiente virtual que permite a movimentação financeira, contratação de produtos e consulta de informações pelo cliente.
+            </p>
+
+            <h3>2. Aceitação dos Termos</h3>
+            <p>Ao criar uma conta, acessar a plataforma ou realizar qualquer operação financeira, o Usuário aceita integralmente as condições estabelecidas neste documento. Caso não concorde com qualquer cláusula, o Usuário deve interromper imediatamente o uso dos serviços e solicitar o encerramento de sua conta, se aplicável.</p>
+
+            <h3>3. Cadastro e Responsabilidade do Usuário</h3>
+            <ul>
+                <li>3.1. O cadastro é pessoal e intransferível. O Usuário é responsável por fornecer informações verdadeiras, completas e atualizadas.</li>
+                <li>3.2. O Banco Quantum não se responsabiliza por erros ou prejuízos decorrentes de dados incorretos fornecidos pelo usuário.</li>
+                <li>3.3. O acesso à conta exige autenticação, podendo incluir senha, token, biometria ou autenticação em dois fatores (2FA).</li>
+                <li>3.4. O Usuário se compromete a não compartilhar suas credenciais de acesso com terceiros e a comunicar imediatamente ao Banco Quantum qualquer uso indevido ou suspeita de fraude.</li>
+            </ul>
+
+            <h3>4. Segurança da Informação</h3>
+            <ul>
+                <li>4.1. O Banco Quantum utiliza tecnologias de criptografia, monitoramento de transações e sistemas antifraude para proteger as informações e operações dos clientes.</li>
+                <li>4.2. Todas as informações pessoais e financeiras são tratadas conforme a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados – LGPD).</li>
+                <li>4.3. O Usuário declara estar ciente de que a segurança também depende de suas próprias práticas, como o uso de senhas fortes, dispositivos atualizados e o não compartilhamento de informações sensíveis.</li>
+            </ul>
+
+            <h3>5. Serviços Oferecidos</h3>
+            <p>O Banco Quantum disponibiliza, entre outros:</p>
+            <ul>
+                <li>Abertura e manutenção de contas digitais;</li>
+                <li>Transferências, pagamentos e recebimentos;</li>
+                <li>Empréstimos pessoais e empresariais;</li>
+                <li>Investimentos e gestão financeira digital;</li>
+                <li>Suporte e atendimento remoto.</li>
+            </ul>
+            <p>O Banco Quantum reserva-se o direito de alterar, suspender ou encerrar qualquer serviço, mediante comunicação prévia, respeitando contratos vigentes e obrigações legais.</p>
+
+            <h3>6. Taxas e Encargos</h3>
+            <ul>
+                <li>6.1. Alguns serviços podem estar sujeitos a tarifas, encargos ou taxas administrativas, conforme tabela divulgada no site e no aplicativo oficial.</li>
+                <li>6.2. O Usuário será informado previamente sobre quaisquer cobranças aplicáveis antes da efetivação da operação.</li>
+            </ul>
+
+            <h3>7. Privacidade e Proteção de Dados</h3>
+            <ul>
+                <li>7.1. O Banco Quantum coleta e trata dados pessoais conforme sua Política de Privacidade, disponível em documento separado.</li>
+                <li>7.2. O Usuário autoriza o tratamento de seus dados para fins de operação bancária, prevenção à fraude, cumprimento de obrigações legais e melhoria de serviços.</li>
+            </ul>
+
+            <h3>8. Responsabilidades e Limitações</h3>
+            <ul>
+                <li>8.1. O Banco Quantum não se responsabiliza por prejuízos decorrentes de uso indevido da conta pelo próprio usuário ou terceiros, falhas de conexão, manutenção programada, ou eventos de força maior.</li>
+                <li>8.2. O Usuário concorda em utilizar os serviços de forma ética, legal e responsável, não podendo empregar a plataforma para atividades ilícitas, lavagem de dinheiro ou fraudes.</li>
+            </ul>
+
+            <h3>9. Propriedade Intelectual</h3>
+            <p>Todos os elementos do site e do aplicativo — incluindo logotipos, marcas, textos, imagens, códigos e design — são de propriedade exclusiva do Banco Quantum, sendo vedada sua reprodução ou utilização sem autorização prévia e expressa.</p>
+
+            <h3>10. Comunicações e Notificações</h3>
+            <p>As comunicações oficiais entre o Banco Quantum e o Usuário poderão ocorrer por e-mail, SMS, aplicativo ou pelo site oficial. O Banco Quantum nunca solicita senhas, códigos ou dados pessoais por meios não oficiais.</p>
+
+            <h3>11. Encerramento de Conta</h3>
+            <p>O Usuário poderá solicitar o encerramento de sua conta a qualquer momento, desde que não haja pendências financeiras ou contratuais. O Banco Quantum poderá encerrar ou suspender contas em caso de uso irregular, fraude, violação destes Termos ou exigência legal.</p>
+
+            <h3>12. Alterações dos Termos</h3>
+            <p>O Banco Quantum poderá atualizar estes Termos periodicamente. As versões atualizadas serão publicadas no site e/ou aplicativo, e o uso contínuo da plataforma após tais alterações constitui aceite integral das novas condições.</p>
+
+            <h3>13. Foro e Legislação Aplicável</h3>
+            <p>Este contrato é regido pelas leis da República Federativa do Brasil. Fica eleito o foro da Comarca de São Paulo – SP, com renúncia a qualquer outro, para dirimir eventuais controvérsias decorrentes destes Termos.</p>
+
+            <p>
+                <strong>Banco Quantum S.A.</strong><br>
+                Comprometido com a inovação, a transparência e a segurança financeira de todos os seus clientes.
+            </p>
+        </div>
     </div>
+
 
     <script>
         // Alternar abas (mantive seu comportamento)
@@ -963,8 +1096,8 @@
             essencial: {
                 titulo: "Cartão Essencial",
                 descricao: `Cashback de 0,5% em todas as compras, zero anuidade e programa de proteção de compras.`
-                     
-                 
+
+
             },
             premium: {
                 titulo: "Cartão Premium",
@@ -1055,41 +1188,41 @@
             // Habilita botão para confirmar empréstimo
             document.getElementById('confirmarEmprestimoBtn').disabled = false;
 
-        // Botão confirmar empréstimo
-        document.getElementById('confirmarEmprestimoBtn').addEventListener('click', () => {
-            const valor = parseFloat(document.getElementById('valorSimEmprestimo').value);
-            const parcelas = parseInt(document.getElementById('parcelasSim').value, 10);
-            if (isNaN(valor) || valor <= 0) return alert('Valor do empréstimo inválido.');
-            if (isNaN(parcelas) || parcelas <= 0) return alert('Número de parcelas inválido.');
+            // Botão confirmar empréstimo
+            document.getElementById('confirmarEmprestimoBtn').addEventListener('click', () => {
+                const valor = parseFloat(document.getElementById('valorSimEmprestimo').value);
+                const parcelas = parseInt(document.getElementById('parcelasSim').value, 10);
+                if (isNaN(valor) || valor <= 0) return alert('Valor do empréstimo inválido.');
+                if (isNaN(parcelas) || parcelas <= 0) return alert('Número de parcelas inválido.');
 
-            const juros = 0.078; // 7,8% ao mês
-            const parcelaValor = valor * (juros * Math.pow(1 + juros, parcelas)) / (Math.pow(1 + juros, parcelas) - 1);
+                const juros = 0.078; // 7,8% ao mês
+                const parcelaValor = valor * (juros * Math.pow(1 + juros, parcelas)) / (Math.pow(1 + juros, parcelas) - 1);
 
-            const emprestimo = {
-                total: valor,
-                parcelas,
-                parcelaValor: parseFloat(parcelaValor.toFixed(2)),
-                pagas: 0
-            };
+                const emprestimo = {
+                    total: valor,
+                    parcelas,
+                    parcelaValor: parseFloat(parcelaValor.toFixed(2)),
+                    pagas: 0
+                };
 
-            // Salva no localStorage
-            localStorage.setItem('emprestimo', JSON.stringify(emprestimo));
+                // Salva no localStorage
+                localStorage.setItem('emprestimo', JSON.stringify(emprestimo));
 
-            // Adiciona saldo
-            saldo += valor;
-            localStorage.setItem('userBalance', saldo);
-            saldoEl.textContent = saldo.toFixed(2);
-            appendExtrato(`Empréstimo de R$ ${valor.toFixed(2)} confirmado.`);
+                // Adiciona saldo
+                saldo += valor;
+                localStorage.setItem('userBalance', saldo);
+                saldoEl.textContent = saldo.toFixed(2);
+                appendExtrato(`Empréstimo de R$ ${valor.toFixed(2)} confirmado.`);
 
-            document.getElementById('valorSimEmprestimo').value = '';
-            document.getElementById('confirmarEmprestimoBtn').disabled = true;
+                document.getElementById('valorSimEmprestimo').value = '';
+                document.getElementById('confirmarEmprestimoBtn').disabled = true;
 
-            // Atualiza status inicial da parcela
-            document.getElementById('emprestimoStatus').textContent =
-                `Parcelas pagas: ${emprestimo.pagas} / ${emprestimo.parcelas}`;
+                // Atualiza status inicial da parcela
+                document.getElementById('emprestimoStatus').textContent =
+                    `Parcelas pagas: ${emprestimo.pagas} / ${emprestimo.parcelas}`;
 
-            alert(`Empréstimo de R$ ${valor.toFixed(2)} adicionado à sua conta!`);
-        });
+                alert(`Empréstimo de R$ ${valor.toFixed(2)} adicionado à sua conta!`);
+            });
 
         });
 
@@ -1136,6 +1269,191 @@
                 }
             });
         });
+
+        // ============================
+        // SISTEMA DE TRANSFERÊNCIA
+        // ============================
+
+        const formTransfer = document.getElementById('formTransfer');
+        const inputDestino = document.getElementById('transferDestino');
+        const inputValor = document.getElementById('transferValor');
+
+        if (formTransfer) {
+            formTransfer.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const destino = inputDestino.value.trim();
+                const valor = parseFloat(inputValor.value);
+
+                if (!destino) {
+                    alert('Informe o destinatário da transferência.');
+                    return;
+                }
+                if (isNaN(valor) || valor <= 0) {
+                    alert('Digite um valor válido.');
+                    return;
+                }
+                if (valor > saldo) {
+                    alert('Saldo insuficiente.');
+                    return;
+                }
+
+                // Atualiza o saldo
+                saldo -= valor;
+                localStorage.setItem('userBalance', saldo);
+                saldoEl.textContent = saldo.toFixed(2);
+
+                // Atualiza extrato
+                appendExtrato(`Transferência de R$ ${valor.toFixed(2)} para ${destino}`);
+
+                // Limpa campos
+                inputDestino.value = '';
+                inputValor.value = '';
+
+                alert(`Transferência para ${destino} concluída!`);
+            });
+        }
+
+        // ====== FINANCIAMENTO ======
+        const saldoFinEl = document.getElementById('saldoContaFinanciamento');
+        const simFinBtn = document.getElementById('simularFinanciamentoBtn');
+        const confFinBtn = document.getElementById('confirmarFinanciamentoBtn');
+        const pagarFinBtn = document.getElementById('pagarParcelaFinBtn');
+        const valorFinEl = document.getElementById('valorSimFinanciamento');
+        const parcelasFinEl = document.getElementById('parcelasSimFinanciamento');
+        const statusFinEl = document.getElementById('financiamentoStatus');
+        const ctxFin = document.getElementById('simFinanciamentoChart').getContext('2d');
+
+        let finChart = null;
+
+        // Função para atualizar status
+        function atualizarStatusFinanciamento() {
+            const financiamento = JSON.parse(localStorage.getItem('financiamento') || 'null');
+            if (!financiamento) {
+                statusFinEl.textContent = 'Parcelas pagas: 0 / 0';
+                return;
+            }
+            statusFinEl.textContent = `Parcelas pagas: ${financiamento.pagas} / ${financiamento.parcelas}`;
+        }
+
+        // Atualiza saldo na conta
+        function atualizarSaldo() {
+            // saldo deve ser variável global do seu site
+            saldoEl.textContent = saldo.toFixed(2);
+            saldoFinEl.textContent = saldo.toFixed(2);
+        }
+
+        // Simulação de financiamento
+        simFinBtn.addEventListener('click', () => {
+            const valor = parseFloat(valorFinEl.value);
+            const anos = parseInt(parcelasFinEl.value, 10);
+
+            if (isNaN(valor) || valor < 25000) return alert('O financiamento deve ser no mínimo R$ 25.000.');
+            if (isNaN(anos) || anos < 1 || anos > 15) return alert('Escolha de 1 a 15 anos.');
+
+            const jurosAnual = 0.075;
+            const parcelaValor = valor * (jurosAnual * Math.pow(1 + jurosAnual, anos)) / (Math.pow(1 + jurosAnual, anos) - 1);
+
+            const labels = [];
+            const totalPago = [];
+            let acumulado = 0;
+            for (let i = 1; i <= anos; i++) {
+                acumulado += parcelaValor;
+                totalPago.push(parseFloat(acumulado.toFixed(2)));
+                labels.push(`Ano ${i}`);
+            }
+
+            if (!finChart) {
+                finChart = new Chart(ctxFin, {
+                    type: 'line',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Total Pago (R$)',
+                            data: totalPago,
+                            borderColor: '#78b2cb',
+                            fill: false,
+                            tension: 0.1,
+                            pointRadius: 3
+                        }]
+                    },
+                    options: { scales: { y: { beginAtZero: true } }, animation: { duration: 500 } }
+                });
+            } else {
+                finChart.data.labels = labels;
+                finChart.data.datasets[0].data = totalPago;
+                finChart.update();
+            }
+
+            confFinBtn.disabled = false;
+        });
+
+        // Confirmar financiamento
+        confFinBtn.addEventListener('click', () => {
+            const valor = parseFloat(valorFinEl.value);
+            const anos = parseInt(parcelasFinEl.value, 10);
+
+            if (isNaN(valor) || valor < 25000) return alert('Valor inválido.');
+            if (isNaN(anos) || anos < 1 || anos > 15) return alert('Escolha de 1 a 15 anos.');
+
+            const jurosAnual = 0.075;
+            const parcelaValor = valor * (jurosAnual * Math.pow(1 + jurosAnual, anos)) / (Math.pow(1 + jurosAnual, anos) - 1);
+
+            const financiamento = {
+                total: valor,
+                parcelas: anos,
+                parcelaValor: parseFloat(parcelaValor.toFixed(2)),
+                pagas: 0
+            };
+
+            localStorage.setItem('financiamento', JSON.stringify(financiamento));
+
+            // Adiciona o valor financiado à conta
+            saldo += valor;
+            localStorage.setItem('userBalance', saldo);
+            atualizarSaldo();
+
+            if (typeof appendExtrato === 'function') {
+                appendExtrato(`Financiamento de R$ ${valor.toFixed(2)} confirmado.`);
+            }
+
+            alert(`Financiamento de R$ ${valor.toFixed(2)} confirmado!`);
+            valorFinEl.value = '';
+            confFinBtn.disabled = true;
+
+            atualizarStatusFinanciamento();
+        });
+
+        // Pagar parcela
+        pagarFinBtn.addEventListener('click', () => {
+            const financiamento = JSON.parse(localStorage.getItem('financiamento') || 'null');
+            if (!financiamento) return alert('Não há financiamento ativo.');
+
+            if (financiamento.pagas >= financiamento.parcelas) return alert('Todas as parcelas já foram pagas!');
+            if (saldo < financiamento.parcelaValor) return alert('Saldo insuficiente para pagar a parcela!');
+
+            saldo -= financiamento.parcelaValor;
+            localStorage.setItem('userBalance', saldo);
+            atualizarSaldo();
+
+            financiamento.pagas += 1;
+            localStorage.setItem('financiamento', JSON.stringify(financiamento));
+
+            if (typeof appendExtrato === 'function') {
+                appendExtrato(`Parcela do financiamento paga: R$ ${financiamento.parcelaValor.toFixed(2)}`);
+            }
+
+            atualizarStatusFinanciamento();
+            alert(`Parcela de R$ ${financiamento.parcelaValor.toFixed(2)} paga com sucesso!`);
+
+            if (financiamento.pagas === financiamento.parcelas) {
+                alert('Financiamento totalmente quitado!');
+            }
+        });
+
+        // Inicializa status
+        atualizarStatusFinanciamento();
+        atualizarSaldo();
 
 
     </script>
