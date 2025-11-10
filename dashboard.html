@@ -324,6 +324,8 @@
             padding: 8px 0 0 0;
             color: #555;
         }
+
+
     </style>
 </head>
 <body>
@@ -405,15 +407,17 @@
         </div>
 
         <!-- Outras seções (inalteradas) -->
+        <!-- Aba de Transferência -->
         <div id="transferencias" class="content-section">
-            <h2>Transferências</h2>
-            <form id="transferForm">
-                <input type="email" placeholder="Email do destinatário" required>
-                <input type="number" placeholder="Valor" required>
-                <button type="submit" class="submit-btn">Enviar</button>
-            </form>
-            <p id="transferStatus"></p>
+            <h2>Transferência Bancária</h2>
+
+            <input type="text" id="destinatarioTransferencia" placeholder="Nome ou número da conta do destinatário">
+            <input type="number" id="valorTransferencia" placeholder="Valor da transferência (R$)">
+            <button id="transferirBtn" class="submit-btn">Transferir</button>
+
+            <p>Saldo atual: R$ <span id="saldoContaTransferencia">0.00</span></p>
         </div>
+
 
         <div id="cartoes" class="content-section">
             <h2>Cartões</h2>
@@ -699,7 +703,6 @@
             </p>
         </div>
     </div>
-
 
     <script>
         // Alternar abas (mantive seu comportamento)
@@ -1270,49 +1273,59 @@
             });
         });
 
-        // ============================
-        // SISTEMA DE TRANSFERÊNCIA
-        // ============================
+        // --- TRANSFERÊNCIA ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const saldoTransferenciaEl = document.getElementById('saldoContaTransferencia');
+            const transferirBtn = document.getElementById('transferirBtn');
+            const valorInput = document.getElementById('valorTransferencia');
+            const destinatarioInput = document.getElementById('destinatarioTransferencia');
 
-        const formTransfer = document.getElementById('formTransfer');
-        const inputDestino = document.getElementById('transferDestino');
-        const inputValor = document.getElementById('transferValor');
+            function atualizarSaldoTransferencia() {
+                saldoTransferenciaEl.textContent = saldo.toFixed(2);
+            }
 
-        if (formTransfer) {
-            formTransfer.addEventListener('submit', (e) => {
-                e.preventDefault();
+            // Atualiza saldo sempre que abrir a aba de transferência
+            document.getElementById('menuTransferencia')?.addEventListener('click', atualizarSaldoTransferencia);
 
-                const destino = inputDestino.value.trim();
-                const valor = parseFloat(inputValor.value);
+            // Clique no botão de transferência
+            transferirBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // evita recarregar a página
 
-                if (!destino) {
-                    alert('Informe o destinatário da transferência.');
-                    return;
-                }
+                const valor = parseFloat(valorInput.value);
+                const destinatario = destinatarioInput.value.trim();
+
                 if (isNaN(valor) || valor <= 0) {
-                    alert('Digite um valor válido.');
+                    alert('Digite um valor válido para transferir.');
                     return;
                 }
+
                 if (valor > saldo) {
-                    alert('Saldo insuficiente.');
+                    alert('Saldo insuficiente para realizar a transferência.');
                     return;
                 }
 
-                // Atualiza o saldo
-                saldo -= valor;
-                localStorage.setItem('userBalance', saldo);
-                saldoEl.textContent = saldo.toFixed(2);
+                if (!destinatario) {
+                    alert('Digite o nome ou número da conta do destinatário.');
+                    return;
+                }
 
-                // Atualiza extrato
-                appendExtrato(`Transferência de R$ ${valor.toFixed(2)} para ${destino}`);
+                // Realiza a transferência
+                saldo -= valor;
+                saldoEl.textContent = saldo.toFixed(2);
+                atualizarSaldoTransferencia();
+                localStorage.setItem('userBalance', saldo);
+
+                // Adiciona no extrato
+                appendExtrato(`Transferência de R$ ${valor.toFixed(2)} para ${destinatario}.`);
 
                 // Limpa campos
-                inputDestino.value = '';
-                inputValor.value = '';
+                valorInput.value = '';
+                destinatarioInput.value = '';
 
-                alert(`Transferência para ${destino} concluída!`);
+                alert(`Transferência de R$ ${valor.toFixed(2)} enviada para ${destinatario}!`);
             });
-        }
+        });
+
 
         // ====== FINANCIAMENTO ======
         const saldoFinEl = document.getElementById('saldoContaFinanciamento');
