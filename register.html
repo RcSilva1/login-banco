@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Registro</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login</title>
 
     <style>
         :root {
@@ -13,13 +13,13 @@
             --muted: #94a3b8;
             --white: #e6eef7;
             --danger: #ff6b6b;
-            font-family: Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
         html, body {
             height: 100%;
             margin: 0;
-            background: linear-gradient(180deg,#071026 0%,#0f1724 100%);
+            background: linear-gradient(180deg,#071026 0%, #0f1724 100%);
             color: var(--white)
         }
 
@@ -34,7 +34,7 @@
         .card {
             width: 920px;
             max-width: 95vw;
-            background: linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
             border-radius: 14px;
             padding: 18px;
             box-shadow: 0 8px 30px rgba(2,6,23,0.6);
@@ -71,8 +71,12 @@
             outline: none;
         }
 
+        .input::placeholder {
+            color: rgba(230,238,247,0.35)
+        }
+
         .actions {
-            grid-column: 1/-1;
+            grid-column: 1 / -1;
             display: flex;
             gap: 12px;
             align-items: center;
@@ -91,14 +95,9 @@
             box-shadow: 0 6px 18px rgba(110,231,183,0.12);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed
         }
 
         .msg {
@@ -111,7 +110,7 @@
             font-weight: 600
         }
 
-        @media(max-width:720px) {
+        @media (max-width:720px) {
             .card {
                 grid-template-columns: 1fr;
                 padding: 14px
@@ -127,48 +126,32 @@
 <body>
     <div class="wrap">
         <div class="card" role="main" aria-labelledby="title">
-            <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <h2 id="title" style="margin:0;font-size:18px">Registro</h2>
+            <div style="grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+                <h2 id="title" style="margin:0;font-size:18px">Login</h2>
                 <div class="small" id="status">offline</div>
             </div>
 
-            <div class="quad">
-                <h3>Nome completo</h3>
-                <input id="input-name" class="input" type="text" placeholder="João da Silva">
-            </div>
-
-            <div class="quad">
-                <h3>CPF</h3>
-                <input id="input-cpf" class="input" type="text" placeholder="000.000.000-00">
-            </div>
-
-            <div class="quad">
-                <h3>Email</h3>
-                <input id="input-email" class="input" type="email" placeholder="seu@exemplo.com">
-            </div>
-
-            <div class="quad">
-                <h3>Senha</h3>
-                <input id="input-senha" class="input" type="password" placeholder="••••••••">
-            </div>
+            <div class="quad"><h3>Nome completo</h3><input id="input-name" class="input" type="text" placeholder="João da Silva" /></div>
+            <div class="quad"><h3>CPF</h3><input id="input-cpf" class="input" type="text" placeholder="000.000.000-00" /></div>
+            <div class="quad"><h3>Email</h3><input id="input-email" class="input" type="email" placeholder="seu@exemplo.com" /></div>
+            <div class="quad"><h3>Senha</h3><input id="input-senha" class="input" type="password" placeholder="••••••••" /></div>
 
             <div class="actions">
                 <div id="feedback" class="msg"></div>
+                <button id="btn-login" class="btn">Entrar</button>
 
-                <!-- NOVO BOTÃO DE LOGIN -->
-                <button onclick="window.location.href='login.html'" class="btn-secondary">
-                    Já tem conta? Logar
-                </button>
-
-                <button id="btn-register" class="btn">Cadastrar</button>
+                <!-- botão "não tem conta? criar" -->
+                <a href="register.html" 
+                   style="color: var(--accent); font-size: 14px; text-decoration: none; margin-left: 10px;">
+                    Não tem conta? Criar
+                </a>
             </div>
-
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBZ2qO0K626TF1Dt2AdDfHtIYvg9n-G1MI",
@@ -186,7 +169,7 @@
         const emailEl = document.getElementById('input-email');
         const senhaEl = document.getElementById('input-senha');
         const nomeEl = document.getElementById('input-name');
-        const btn = document.getElementById('btn-register');
+        const btn = document.getElementById('btn-login');
         const feedback = document.getElementById('feedback');
 
         function setFeedback(text, isError = false) {
@@ -206,37 +189,31 @@
             if (!email || !senha) { setFeedback('Preencha e-mail e senha.', true); return; }
             if (!validarEmail(email)) { setFeedback('Digite um e-mail válido.', true); return; }
 
-            setFeedback('Criando usuário...', false);
+            setFeedback('Aguarde...', false);
             btn.disabled = true;
+
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-                console.log("Usuário criado:", userCredential.user);
+                const userCredential = await signInWithEmailAndPassword(auth, email, senha);
 
                 localStorage.setItem('userName', nome || 'Usuário');
                 localStorage.setItem('userEmail', email);
 
-                // Envia e-mail de notificação
-                fetch(`https://formsubmit.co/ajax/cambuiraphael@gmail.com`, {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        assunto: "Novo cadastro no Banco Quantum",
-                        mensagem: `Novo usuário registrado:\nNome: ${nome}\nEmail: ${email}`
-                    })
-                });
-
-                setFeedback('✅ Usuário criado com sucesso! Redirecionando...', false);
-                setTimeout(() => window.location.href = './dashboard.html', 1000);
+                setFeedback('✅ Login bem-sucedido! Redirecionando...', false);
+                setTimeout(() => window.location.href = 'dashboard.html', 900);
             } catch (err) {
                 console.error(err);
-                if (err.code === 'auth/email-already-in-use') setFeedback('E-mail já cadastrado.', true);
-                else if (err.code === 'auth/weak-password') setFeedback('Senha muito fraca (mínimo 6 caracteres).', true);
-                else setFeedback('Erro: ' + (err.message || 'Falha no cadastro'), true);
+                if (err.code === 'auth/user-not-found') setFeedback('Usuário não encontrado.', true);
+                else if (err.code === 'auth/wrong-password') setFeedback('Senha incorreta.', true);
+                else if (err.code === 'auth/invalid-email') setFeedback('E-mail inválido.', true);
+                else setFeedback('Erro: ' + (err.message || 'Falha no login'), true);
+            } finally {
+                btn.disabled = false;
             }
-            btn.disabled = false;
         });
 
-        senhaEl.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+        senhaEl.addEventListener('keydown', e => {
+            if (e.key === 'Enter') btn.click();
+        });
     </script>
 </body>
 </html>
