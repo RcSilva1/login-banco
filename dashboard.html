@@ -78,11 +78,15 @@
 
         /* Main */
         #main {
+
             flex: 1;
             padding: 20px;
             overflow-y: auto;
             transition: margin-left 0.3s;
+
         }
+
+           
 
         .content-section {
             display: none;
@@ -325,7 +329,34 @@
             color: #555;
         }
 
+        .content-box {
+            background: #ffffff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .content-box h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #003366;
+        }
 
+        .hidden {
+            display: none;
+        }
+
+#educacao {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#educacao .content-box {
+    margin: 0 !important;
+    padding: 15px !important;
+}
+
+        
     </style>
 </head>
 <body>
@@ -346,8 +377,12 @@
 
         <div class="topic">Informações</div>
         <div class="nav-item" data-target="sobreBanco">Sobre o Banco</div>
-        <div class="nav-item" data-target="seguranca">Segurança</div>
         <div class="nav-item" data-target="termos">Termos e Condições</div>
+        <div class="nav-item" data-target="seguranca">Segurança</div>
+        <div class="nav-item" data-target="educacao">Educação Financeira</div>
+        <div class="nav-item" data-target="investimentos">Investimentos</div>
+        <div class="nav-item" data-target="seguros">Seguros</div>
+        
 
         <div class="topic">Suporte</div>
         <div class="nav-item" data-target="duvidas">Dúvidas Frequentes</div>
@@ -449,7 +484,6 @@
             </div>
         </div>
 
-        <div id="investimentos" class="content-section"><h2>Investimentos</h2></div>
         <div id="emprestimos" class="content-section">
 
             <div id="emprestimoResumo">
@@ -702,7 +736,266 @@
                 Comprometido com a inovação, a transparência e a segurança financeira de todos os seus clientes.
             </p>
         </div>
+
+<div id="educacao" class="content-section">
+    <h2>Educação Financeira</h2>
+
+    <div class="content-box">
+        <h3>CDI</h3>
+        <p><strong>O que é:</strong> O CDI é uma taxa usada como referência para a maior parte dos investimentos de renda fixa do Brasil. Ele representa os juros que os bancos cobram entre si em empréstimos de curtíssimo prazo.</p>
+
+        <p><strong>Por que é importante:</strong></p>
+        <ul>
+            <li>A maioria dos investimentos rende um percentual do CDI, como CDBs, LCIs, LCAs e alguns fundos.</li>
+            <li>Exemplos comuns: 100% do CDI, 110% do CDI, 130% do CDI.</li>
+            <li>Ele acompanha de perto a taxa Selic, mudando sempre que a política de juros muda.</li>
+        </ul>
+
+        <p><strong>Impacto nos investimentos:</strong></p>
+        <ul>
+            <li><strong>CDI alto:</strong> renda fixa mais rentável, com juros diários maiores.</li>
+            <li><strong>CDI baixo:</strong> investimentos atrelados ao CDI rendem menos.</li>
+        </ul>
+
+        <p>Investimentos atrelados ao CDI são seguros, previsíveis e ótimos para quem busca estabilidade e crescimento diário.</p>
     </div>
+
+    <div class="content-box">
+        <h3>Taxa Selic</h3>
+        <p><strong>O que é:</strong> A Selic é a taxa básica de juros da economia brasileira. Ela influencia empréstimos, financiamentos, cartões, investimentos e praticamente todas as operações financeiras do país.</p>
+
+        <p><strong>Como funciona:</strong></p>
+        <ul>
+            <li>O Banco Central ajusta a Selic para controlar a inflação.</li>
+            <li>Quando a economia está aquecida, a Selic sobe para conter os preços.</li>
+            <li>Quando a economia está fraca, a Selic baixa para estimular o consumo.</li>
+        </ul>
+
+        <p><strong>Efeitos práticos:</strong></p>
+        <ul>
+            <li><strong>Selic alta:</strong> empréstimos ficam caros, renda fixa rende mais e a economia desacelera.</li>
+            <li><strong>Selic baixa:</strong> crédito fica barato, renda fixa rende menos e o consumo aumenta.</li>
+            <li>Impacta diretamente investimentos como Tesouro Selic, fundos DI e CDBs pós-fixados.</li>
+        </ul>
+
+        <p>A Selic é o principal termômetro da economia e influencia praticamente tudo no mercado financeiro.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Juros Compostos</h3>
+        <p><strong>O que são:</strong> Os juros compostos representam os famosos "juros sobre juros", onde seu dinheiro rende não apenas sobre o valor inicial, mas também sobre os ganhos acumulados.</p>
+
+        <p><strong>Por que é importante:</strong></p>
+        <ul>
+            <li>O dinheiro cresce de forma acelerada ao longo do tempo.</li>
+            <li>É a base da construção de patrimônio a longo prazo.</li>
+            <li>Quanto maior o tempo investido, maior o impacto dos juros compostos.</li>
+        </ul>
+
+        <p><strong>Exemplo simples:</strong></p>
+        <ul>
+            <li>Ano 1: R$ 1.000 → R$ 1.100</li>
+            <li>Ano 2: R$ 1.100 → R$ 1.210</li>
+            <li>Ano 3: R$ 1.210 → R$ 1.331</li>
+        </ul>
+
+        <p>Os juros compostos também funcionam contra você em dívidas, como cartão de crédito, rotativo e cheque especial.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Boas Práticas Financeiras</h3>
+        <ul>
+            <li>Evite compras por impulso — espere 24h antes de decidir.</li>
+            <li>Use o cartão de crédito com responsabilidade e com limite controlado.</li>
+            <li>Revise seus gastos mensalmente para eliminar desperdícios.</li>
+            <li>Priorize o pagamento de dívidas com juros altos.</li>
+            <li>Mantenha um fundo de emergência equivalente a 3 a 6 meses de gastos.</li>
+            <li>Invista regularmente, mesmo valores pequenos — a consistência importa mais que o valor.</li>
+            <li>Defina metas financeiras claras (casa, carro, viagem, aposentadoria).</li>
+            <li>Diversifique sua carteira quando atingir valores maiores para reduzir riscos.</li>
+        </ul>
+
+        <p>Bons hábitos financeiros constroem segurança e liberdade no longo prazo.</p>
+    </div>
+</div>
+
+
+<div id="seguros" class="content-section">
+    <h2>Seguros</h2>
+
+    <div class="content-box">
+        <h3>Seguro de Vida</h3>
+        <p><strong>O que é:</strong> O seguro de vida oferece proteção financeira para familiares ou beneficiários em caso de falecimento do segurado. Ele garante apoio em momentos difíceis e pode incluir coberturas adicionais.</p>
+
+        <p><strong>Principais benefícios:</strong></p>
+        <ul>
+            <li>Indenização financeira para os beneficiários.</li>
+            <li>Proteção em casos de invalidez permanente total ou parcial.</li>
+            <li>Possibilidade de assistência funeral.</li>
+            <li>Planos acessíveis e adaptados às necessidades do cliente.</li>
+        </ul>
+
+        <p>O seguro de vida é indicado para quem busca segurança para a família e organização financeira a longo prazo.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Seguro Residencial</h3>
+        <p><strong>O que é:</strong> Proteção para sua casa e bens pessoais contra imprevistos como incêndios, furtos, danos elétricos, desastres naturais e acidentes domésticos.</p>
+
+        <p><strong>O que cobre normalmente:</strong></p>
+        <ul>
+            <li>Incêndio, explosão e fumaça.</li>
+            <li>Furto ou roubo de bens.</li>
+            <li>Danos elétricos a eletrodomésticos.</li>
+            <li>Quebra de vidros, espelhos e mármores.</li>
+            <li>Alagamentos e vendavais (dependendo do plano).</li>
+        </ul>
+
+        <p>Além da proteção estrutural, muitos planos incluem serviços 24h como chaveiro, encanador e eletricista.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Seguro de Automóvel</h3>
+        <p><strong>O que é:</strong> O seguro auto protege seu veículo contra danos, acidentes, roubos, furtos e colisões, garantindo economia e tranquilidade no dia a dia.</p>
+
+        <p><strong>Coberturas mais comuns:</strong></p>
+        <ul>
+            <li>Roubo ou furto do veículo.</li>
+            <li>Danos por colisão, incêndio ou alagamento.</li>
+            <li>Assistência 24h: guincho, chaveiro, troca de pneu, pane seca.</li>
+            <li>Proteção contra terceiros (danos materiais e corporais).</li>
+        </ul>
+
+        <p>Planos podem ser personalizados conforme o perfil do motorista e o valor do veículo.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Seguro Viagem</h3>
+        <p><strong>O que é:</strong> Cobertura para emergências durante viagens nacionais e internacionais. Alguns países exigem seguro para permitir a entrada.</p>
+
+        <p><strong>O que costuma cobrir:</strong></p>
+        <ul>
+            <li>Despesas médicas e hospitalares.</li>
+            <li>Extravio ou atraso de bagagem.</li>
+            <li>Cancelamento ou interrupção da viagem.</li>
+            <li>Assistência odontológica.</li>
+            <li>Repatriação médica e funerária.</li>
+        </ul>
+
+        <p>O seguro viagem garante proteção financeira e suporte em qualquer lugar do mundo.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Seguro Empresarial</h3>
+        <p><strong>O que é:</strong> Proteção completa para empresas, com cobertura para equipamentos, estoque, estrutura física e responsabilidade civil.</p>
+
+        <p><strong>Vantagens e coberturas:</strong></p>
+        <ul>
+            <li>Proteção contra incêndios, explosões e danos estruturais.</li>
+            <li>Cobertura para assaltos e furtos.</li>
+            <li>Danos elétricos em equipamentos essenciais.</li>
+            <li>Responsabilidade civil empresarial.</li>
+            <li>Planos específicos para diferentes tipos de negócios.</li>
+        </ul>
+
+        <p>Indispensável para empresas que desejam evitar prejuízos e garantir continuidade operacional.</p>
+    </div>
+</div>
+
+<div id="investimentos" class="content-section">
+    <h2>Investimentos</h2>
+
+    <div class="content-box">
+        <h3>Introdução</h3>
+        <p>Investir é a melhor forma de fazer o dinheiro trabalhar a seu favor, permitindo que o patrimônio cresça ao longo do tempo. Diferente de guardar dinheiro sem objetivo, investir com estratégia ajuda a proteger contra a inflação e aproveitar oportunidades do mercado.</p>
+    </div>
+
+    <div class="content-box">
+        <h3>Renda Fixa</h3>
+        <p>Investimentos que oferecem maior segurança e previsibilidade.</p>
+        <ul>
+            <li>Exemplos: CDB, Tesouro Direto, LCI/LCA.</li>
+            <li><strong>Vantagens:</strong> baixo risco e rentabilidade estável.</li>
+            <li><strong>Desvantagens:</strong> rendimento menor em cenários de Selic baixa.</li>
+            <li><strong>Ideal para:</strong> reserva de emergência e curto prazo.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Renda Variável</h3>
+        <p>Investimentos cujo preço pode subir ou cair rapidamente, oferecendo maior potencial de ganhos.</p>
+        <ul>
+            <li>Exemplos: ações, ETFs, fundos imobiliários.</li>
+            <li><strong>Vantagens:</strong> potencial de alta rentabilidade.</li>
+            <li><strong>Desvantagens:</strong> oscilação e risco elevado.</li>
+            <li><strong>Ideal para:</strong> médio e longo prazo.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Fundos de Investimento</h3>
+        <p>Um gestor profissional aplica o dinheiro dos investidores de forma diversificada.</p>
+        <ul>
+            <li>Tipos: multimercado, imobiliário, ações, renda fixa.</li>
+            <li><strong>Vantagens:</strong> gestão profissional e diversificação.</li>
+            <li><strong>Desvantagens:</strong> cobrança de taxas.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Tesouro Direto</h3>
+        <p>Programa do Governo Federal com investimentos seguros e acessíveis.</p>
+        <ul>
+            <li><strong>Tesouro Selic:</strong> ideal para reserva de emergência.</li>
+            <li><strong>Tesouro IPCA+:</strong> protege contra inflação.</li>
+            <li><strong>Tesouro Prefixado:</strong> bom em cenários de queda da Selic.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Previdência Privada</h3>
+        <p>Investimento de longo prazo focado na aposentadoria.</p>
+        <ul>
+            <li>Tipos: PGBL e VGBL.</li>
+            <li><strong>Vantagens:</strong> benefícios fiscais e visão de longo prazo.</li>
+            <li><strong>Desvantagens:</strong> pode ter taxas de carregamento e carência.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Perfis de Investidor</h3>
+        <ul>
+            <li><strong>Conservador:</strong> prioriza segurança e estabilidade.</li>
+            <li><strong>Moderado:</strong> busca equilíbrio entre risco e retorno.</li>
+            <li><strong>Arrojado:</strong> aceita maior risco por rentabilidade maior.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Como Montar uma Carteira</h3>
+        <ul>
+            <li>Defina seus objetivos e prazos.</li>
+            <li>Tenha reserva de emergência antes de investir em risco.</li>
+            <li>Diversifique entre diferentes tipos de ativo.</li>
+            <li>Evite agir por impulso.</li>
+            <li>Revise sua carteira periodicamente.</li>
+        </ul>
+    </div>
+
+    <div class="content-box">
+        <h3>Principais Riscos</h3>
+        <ul>
+            <li><strong>Risco de mercado:</strong> variação dos preços.</li>
+            <li><strong>Risco de crédito:</strong> emissor pode não pagar.</li>
+            <li><strong>Risco de liquidez:</strong> dificuldade de resgate.</li>
+            <li><strong>Risco de inflação:</strong> perda de poder de compra.</li>
+        </ul>
+    </div>
+</div>
+
+
+
+</div>
 
     <script>
         // Alternar abas (mantive seu comportamento)
@@ -1464,11 +1757,8 @@
             }
         });
 
-        // Inicializa status
-        atualizarStatusFinanciamento();
-        atualizarSaldo();
 
-
+        
     </script>
 
 </body>
