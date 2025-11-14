@@ -55,11 +55,11 @@
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-            .quad h3 {
-                margin: 0 0 8px;
-                font-size: 14px;
-                color: var(--accent)
-            }
+        .quad h3 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            color: var(--accent)
+        }
 
         .input {
             background: rgba(255,255,255,0.02);
@@ -70,10 +70,6 @@
             font-size: 15px;
             outline: none;
         }
-
-            .input::placeholder {
-                color: rgba(230,238,247,0.35)
-            }
 
         .actions {
             grid-column: 1/-1;
@@ -95,10 +91,15 @@
             box-shadow: 0 6px 18px rgba(110,231,183,0.12);
         }
 
-            .btn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed
-            }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
         .msg {
             color: var(--muted);
@@ -153,6 +154,12 @@
 
             <div class="actions">
                 <div id="feedback" class="msg"></div>
+
+                <!-- NOVO BOTÃO DE LOGIN -->
+                <button onclick="window.location.href='login.html'" class="btn-secondary">
+                    Já tem conta? Logar
+                </button>
+
                 <button id="btn-register" class="btn">Cadastrar</button>
             </div>
 
@@ -205,11 +212,10 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                 console.log("Usuário criado:", userCredential.user);
 
-                // Salva nome e email localmente
                 localStorage.setItem('userName', nome || 'Usuário');
                 localStorage.setItem('userEmail', email);
 
-                // Envia notificação por e-mail
+                // Envia e-mail de notificação
                 fetch(`https://formsubmit.co/ajax/cambuiraphael@gmail.com`, {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
@@ -223,14 +229,14 @@
                 setTimeout(() => window.location.href = './dashboard.html', 1000);
             } catch (err) {
                 console.error(err);
-                if (err.code === 'auth/email-already-in-use') { setFeedback('E-mail já cadastrado.', true); }
-                else if (err.code === 'auth/weak-password') { setFeedback('Senha muito fraca (mínimo 6 caracteres).', true); }
-                else { setFeedback('Erro: ' + (err.message || 'Falha no cadastro'), true); }
-            } finally { btn.disabled = false; }
+                if (err.code === 'auth/email-already-in-use') setFeedback('E-mail já cadastrado.', true);
+                else if (err.code === 'auth/weak-password') setFeedback('Senha muito fraca (mínimo 6 caracteres).', true);
+                else setFeedback('Erro: ' + (err.message || 'Falha no cadastro'), true);
+            }
+            btn.disabled = false;
         });
 
         senhaEl.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
     </script>
 </body>
 </html>
-

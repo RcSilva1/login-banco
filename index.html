@@ -1,5 +1,4 @@
-﻿<
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8" />
@@ -56,11 +55,11 @@
             border: 1px solid rgba(255,255,255,0.02);
         }
 
-            .quad h3 {
-                margin: 0 0 8px;
-                font-size: 14px;
-                color: var(--accent)
-            }
+        .quad h3 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            color: var(--accent)
+        }
 
         .input {
             background: rgba(255,255,255,0.02);
@@ -72,9 +71,9 @@
             outline: none;
         }
 
-            .input::placeholder {
-                color: rgba(230,238,247,0.35)
-            }
+        .input::placeholder {
+            color: rgba(230,238,247,0.35)
+        }
 
         .actions {
             grid-column: 1 / -1;
@@ -96,10 +95,10 @@
             box-shadow: 0 6px 18px rgba(110,231,183,0.12);
         }
 
-            .btn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed
-            }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed
+        }
 
         .msg {
             color: var(--muted);
@@ -140,6 +139,12 @@
             <div class="actions">
                 <div id="feedback" class="msg"></div>
                 <button id="btn-login" class="btn">Entrar</button>
+
+                <!-- botão "não tem conta? criar" -->
+                <a href="register.html" 
+                   style="color: var(--accent); font-size: 14px; text-decoration: none; margin-left: 10px;">
+                    Não tem conta? Criar
+                </a>
             </div>
         </div>
     </div>
@@ -171,6 +176,7 @@
             feedback.textContent = text;
             feedback.className = isError ? 'msg error' : 'msg';
         }
+
         function validarEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim());
         }
@@ -185,10 +191,10 @@
 
             setFeedback('Aguarde...', false);
             btn.disabled = true;
+
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, senha);
 
-                // salva nome e email localmente para o dashboard usar
                 localStorage.setItem('userName', nome || 'Usuário');
                 localStorage.setItem('userEmail', email);
 
@@ -200,10 +206,14 @@
                 else if (err.code === 'auth/wrong-password') setFeedback('Senha incorreta.', true);
                 else if (err.code === 'auth/invalid-email') setFeedback('E-mail inválido.', true);
                 else setFeedback('Erro: ' + (err.message || 'Falha no login'), true);
-            } finally { btn.disabled = false; }
+            } finally {
+                btn.disabled = false;
+            }
         });
 
-        senhaEl.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+        senhaEl.addEventListener('keydown', e => {
+            if (e.key === 'Enter') btn.click();
+        });
     </script>
 </body>
 </html>
