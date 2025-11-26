@@ -402,7 +402,7 @@
             <h2>Investimento em CDB</h2>
             <div id="cdbContainer">
                 <p><strong>CDI atual:</strong> 13.65% a.a</p>
-                <p><strong>Rendimento CDB:</strong> 110% do CDI</p>
+                <p><strong>Rendimento CDB:</strong> 103% do CDI</p>
                 <p><strong>Saldo investido:</strong> R$ <span id="cdbSaldo">0.00</span></p>
                 <p><strong>Rendimento acumulado:</strong> R$ <span id="cdbLucro">0.00</span></p>
 
@@ -1035,7 +1035,7 @@
         const valorCdbEl = document.getElementById('valorCdb');
         const cdbMsgEl = document.getElementById('cdbMsg');
         const cdi = 13.65 / 100;
-        const rendimentoAnual = cdi * 1.10;
+        const rendimentoAnual = cdi * 1.03;
         const rendimentoDiario = rendimentoAnual / 365;
 
         cdbSaldoEl.textContent = cdbSaldo.toFixed(2);
@@ -1443,7 +1443,7 @@
             if (isNaN(valor) || valor <= 0) return alert('Valor do empréstimo inválido.');
             if (isNaN(parcelas) || parcelas <= 0) return alert('Número de parcelas inválido.');
 
-            const juros = 0.078; // 7,8% ao mês
+            const juros = 0.025; // 7,8% ao mês
             const parcelaValor = valor * (juros * Math.pow(1 + juros, parcelas)) / (Math.pow(1 + juros, parcelas) - 1);
 
             const totalPago = [];
@@ -1491,7 +1491,7 @@
                 if (isNaN(valor) || valor <= 0) return alert('Valor do empréstimo inválido.');
                 if (isNaN(parcelas) || parcelas <= 0) return alert('Número de parcelas inválido.');
 
-                const juros = 0.078; // 7,8% ao mês
+                const juros = 0.025; // 7,8% ao mês
                 const parcelaValor = valor * (juros * Math.pow(1 + juros, parcelas)) / (Math.pow(1 + juros, parcelas) - 1);
 
                 const emprestimo = {
@@ -1657,7 +1657,7 @@
             if (isNaN(valor) || valor < 25000) return alert('O financiamento deve ser no mínimo R$ 25.000.');
             if (isNaN(anos) || anos < 1 || anos > 15) return alert('Escolha de 1 a 15 anos.');
 
-            const jurosAnual = 0.075;
+            const jurosAnual = 0.078;
             const parcelaValor = valor * (jurosAnual * Math.pow(1 + jurosAnual, anos)) / (Math.pow(1 + jurosAnual, anos) - 1);
 
             const labels = [];
